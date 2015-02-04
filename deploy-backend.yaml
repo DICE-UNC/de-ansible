@@ -1,5 +1,5 @@
 ---
-- include: db-migrations.yaml
+# - include: db-migrations.yaml
 
 - include: update-services.yaml
 

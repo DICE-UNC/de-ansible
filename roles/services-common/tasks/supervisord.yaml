@@ -2,14 +2,14 @@
   sudo: yes
   get_url: url=http://everdene.iplantcollaborative.org/rpms/iplant-release.repo dest=/etc/yum.repos.d/iplant-release.repo
 
-- name: Install supervisord
-  pip: executable=pip2.6 name=supervisor version=3.0
-  notify:
-    - restart supervisord
-  tags:
-    - supervisord-setup
-    - supervisord-install
-    - supervisord
+# - name: Install supervisord
+#   pip: name=supervisor version=3.1.3
+#   notify:
+#     - restart supervisord
+#   tags:
+#     - supervisord-setup
+#     - supervisord-install
+#     - supervisord
 
 - name: Copy the supervisord init script into place
   sudo: yes

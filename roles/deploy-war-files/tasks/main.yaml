@@ -26,8 +26,9 @@
 
 - name: stage new WAR files
   sudo: True
-  sudo_user: tomcat
-  get_url: url={{ item.url }} dest={{ tomcat_dir }}/webapps/{{ item.name }} force=True
+  # get_url: url={{ item.url }} dest={{ tomcat_dir }}/webapps/{{ item.name }} force=True validate_certs=no
+  shell: curl -L -o {{ tomcat_dir }}/webapps/{{ item.name }} {{ item.url }}
+  # copy: dest={{ tomcat_dir }}/webapps/{{ item.name }} src={{ item.name }}
   with_items: war_files
 
 - name: start tomcat

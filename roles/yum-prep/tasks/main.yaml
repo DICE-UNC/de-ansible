@@ -1,8 +1,8 @@
-- name: download yum repo file
-  sudo: True
-  get_url: url={{iplant_yum_repo}} dest=/etc/yum.repos.d/ mode=0644
-  tags:
-    - yum
+# - name: download yum repo file
+#   sudo: True
+#   get_url: url={{iplant_yum_repo}} dest=/etc/yum.repos.d/ mode=0644 validate_certs=no
+#   tags:
+#     - yum
 
 - name: clean yum metadata
   sudo: True
