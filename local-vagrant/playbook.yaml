@@ -1,14 +1,20 @@
 ---
-- hosts: centos5
+- hosts: ubuntu1
   sudo: true
   gather_facts: false
   tasks:
-    - raw: yum -y install python-simplejson
+    - raw: sudo apt-get install python-simplejson
 
-- hosts: centos6
+- hosts: ubuntu2
   sudo: true
   tasks:
-    - yum: name=libselinux-python state=present
+#    - yum: name=libselinux-python state=present
+
+
+- hosts: ubuntu3
+  sudo: true
+  tasks:
+#    - yum: name=libselinux-python state=present
 
 - hosts: all
   sudo: true

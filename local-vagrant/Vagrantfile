@@ -2,17 +2,20 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.define "centos5" do |centos5|
-    centos5.vm.box = "chef/centos-5.10"
-    centos5.vm.network "private_network", ip: "192.168.33.8"
+  config.vm.define "ubuntu1" do |ubuntu1|
+    ubuntu1.vm.box = "dice/centos7"
+    ubuntu1.vm.network "private_network", ip: "192.168.33.8"
+    config.vbguest.auto_update = false
   end
-  config.vm.define "centos6" do |centos6|
-    centos6.vm.box = "chef/centos-6.5"
-    centos6.vm.network "private_network", ip: "192.168.33.9"
+  config.vm.define "ubuntu2" do |ubuntu2|
+    ubuntu2.vm.box = "dice/centos7"
+    ubuntu2.vm.network "private_network", ip: "192.168.33.9"
+        config.vbguest.auto_update = false
   end
-  config.vm.define "ubuntu12" do |ubuntu12|
-    ubuntu12.vm.box = "hashicorp/precise64"
-    ubuntu12.vm.network "private_network", ip: "192.168.33.10"
+  config.vm.define "ubuntu3" do |ubuntu3|
+    ubuntu3.vm.box = "dice/centos7"
+    ubuntu3.vm.network "private_network", ip: "192.168.33.10"
+        config.vbguest.auto_update = false
   end
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "playbook.yaml"
