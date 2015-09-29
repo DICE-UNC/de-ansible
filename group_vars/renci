@@ -1,10 +1,10 @@
 de_war_url_prefix: https://github.com/iPlantCollaborativeOpenSource/DiscoveryEnvironment/releases/download/1.9.4-RELEASE/
 bg_war_url_prefix: "{{de_war_url_prefix}}"
 
-services_host: dfc-test-desrvc.edc.renci.org
-ui_host: dfc-test-de.edc.renci.org
-condor_host: dfc-test-condor.edc.renci.org
-cas_host: dfc-test-cas.edc.renci.org
+services_host: desrvc.rencivm.org
+ui_host: de.rencivm.org
+condor_host: foundation.rencivm.org
+cas_host: foundation.rencivm.org
 
 parasitic: false
 
@@ -54,7 +54,7 @@ environment_name: dfc-test
 es_host:
 es_port:
 
-icat_host: dfc-test-irods1.edc.renci.org
+icat_host: irods1.rencivm.org
 icat_port: 5432
 icat_user: icat_reader
 icat_password:

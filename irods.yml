@@ -1,0 +1,33 @@
+# THIS ANSIBLE PLAYBOOK FOR DEPLOYING AND INSTALLATION OF IRODS
+# original- Ahmed Abdullah <ahmedaabdulwahed@gmail.com>
+# current - Mike Conway
+- hosts: irods
+  sudo: yes
+  roles:
+   - role: irods
+
+# Install PostgreSQL
+- hosts: irods
+  sudo: yes
+  tasks:
+   - include: roles/irods/tasks/postgresql.yml
+
+- hosts: irods
+  sudo: yes
+  sudo_user: postgres
+  gather_facts: no
+  tasks:
+   - include: roles/irods/tasks/db.yml
+
+# Install iCAT dfc1
+- hosts: irods1
+  sudo: yes
+  roles:
+   - role: icat
+
+# Install iCAT dfc2
+- hosts: irods2
+  sudo: yes
+  roles:
+    - role: icat
+

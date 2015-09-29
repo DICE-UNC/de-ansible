@@ -1,0 +1,23 @@
+---
+- name: download resources package
+  get_url: url={{ irods_resources }} dest=/home/{{ ansible_ssh_user }}/
+
+- name: Install Resources Service
+  shell: dpkg -i /home/{{ ansible_ssh_user }}/{{ resources_pkg }} ;  apt-get -y -f install
+
+- name: response bootstrapping
+  template: src=genresponse.j2 dest=/home/{{ ansible_ssh_user }}/genresponse.sh
+
+- name: generate setup responses
+  shell:
+     mkdir -p /opt/irods;
+     mv /home/{{ ansible_ssh_user }}/genresponse.sh /opt/irods/genresponse.sh;
+     chmod +x /opt/irods/genresponse.sh;
+     /opt/irods/genresponse.sh /opt/irods/setup_responses
+
+- name: Install python packages
+  shell: pip install -U pip jsonschema jinja2
+
+- name: Configure Resource Service
+  shell: /var/lib/irods/packaging/setup_irods.sh < /opt/irods/setup_responses
+ 

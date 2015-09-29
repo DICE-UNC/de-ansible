@@ -1,36 +1,44 @@
 [renci]
-dfc-test-de.edc.renci.org
-dfc-test-desrvc.edc.renci.org
-dfc-test-condor.edc.renci.org
+desrvc.rencivm.org
+de.rencivm.org
+foundation.rencivm.org
+irods1.rencivm.org
+irods2.rencivm.org
 
 [systems]
-dfc-test-de.edc.renci.org
-dfc-test-desrvc.edc.renci.org
-dfc-test-condor.edc.renci.org
+desrvc.rencivm.org
+de.rencivm.org
+foundation.rencivm.org
 
 [services]
-dfc-test-desrvc.edc.renci.org
+desrvc.rencivm.org
 
 [anon-files]
-dfc-test-desrvc.edc.renci.org
+desrvc.rencivm.org
+
+[irods1]
+irods1.rencivm.org
+
+[irods2]
+irods2.rencivm.org
 
 [irods]
-dfc-test-irods1.edc.renci.org
-dfc-test-irods2.edc.renci.org
+irods1.rencivm.org
+irods2.rencivm.org
 
 [ui]
-dfc-test-de.edc.renci.org
+de.rencivm.org
 
 [db]
-dfc-test-de.edc.renci.org
+foundation.rencivm.org
 
 [condor]
-dfc-test-condor.edc.renci.org
+foundation.rencivm.org
 
 [condor-submission]
-dfc-test-desrvc.edc.renci.org
+foundation.rencivm.org
 
 [amqp-brokers]
-dfc-test-condor.edc.renci.org
+foundation.rencivm.org
 
 [elasticsearch]
