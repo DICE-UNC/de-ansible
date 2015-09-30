@@ -19,11 +19,7 @@
   notify:
   - restart rsyslog
 
-- name: Install Common Packages
-  shell: apt-get install openssh-server 
- 
-- name: Create the hosts file for all machines
-  template: src=hosts.j2 dest=/etc/hosts
+
 
 #- name: copy private key
 #  copy: src=id_rsa dest=/home/{{ ansible_ssh_user }}/.ssh/id_rsa

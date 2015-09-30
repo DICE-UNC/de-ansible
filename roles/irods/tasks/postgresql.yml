@@ -9,6 +9,8 @@
               create=yes
 
 - name: ensure apt cache is up to date
+  sudo: yes
+  sudo_user: root
   apt: update_cache=yes
 
 - name: Install PostgrSQL and required packages
@@ -25,7 +27,7 @@
               regexp="^listen_addresses"
               line="listen_addresses='*'" state=present
 
-- name: postgresql should allow access to host
+- name: postgresql should allow access to host9.4
   copy: src=pg_hba.conf  dest=/etc/postgresql/9.4/main/pg_hba.conf
 
 - name: restart postgresql
