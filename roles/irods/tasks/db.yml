@@ -6,10 +6,10 @@
   service: name=postgresql state=restarted
 
 - name: Create PostgrSQL Database
-  postgresql_db: name={{dbname}}
+  postgresql_db: name={{icat_db}}
 
 - name: grant access to user
-  postgresql_user: db={{dbname}} name={{dbuser}} password={{dbpassword}} priv=ALL
+  postgresql_user: db={{icat_db}} name={{icat_irods_user}} password={{irods_icat_password}} priv=ALL
 
 - name: ensure user does not have unnecessary privilege
-  postgresql_user: name={{dbuser}} role_attr_flags=NOSUPERUSER,NOCREATEDB
+  postgresql_user: name={{icat_irods_user}} role_attr_flags=NOSUPERUSER,NOCREATEDB

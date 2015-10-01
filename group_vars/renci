@@ -56,9 +56,15 @@ es_port:
 
 icat_host: irods1.rencivm.org
 icat_port: 5432
+# user for direct reads
 icat_user: icat_reader
+# password for direct reads
 icat_password:
 icat_db: ICAT
+# irods icat user
+icat_irods_user: irods
+# irods icat pass
+irods_icat_password: irods
 
 irods_host: "{{icat_host}}"
 irods_user:
