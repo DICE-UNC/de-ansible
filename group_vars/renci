@@ -112,3 +112,9 @@ user_preferences_port: 5011
 
 user_sessions_host: "{{services_host}}"
 user_sessions_port: 5012
+
+# default vars file for postgresql
+pg_version: 9.4
+pg_encoding: 'UTF-8'
+pg_locale: 'en_US.UTF-8'
+pg_recreate_cluster: true

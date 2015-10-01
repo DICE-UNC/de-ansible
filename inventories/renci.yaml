@@ -1,4 +1,4 @@
-[all]
+[renci]
 irods1.rencivm.org address=172.25.14.235
 irods2.rencivm.org address=172.25.14.148
 desrvc.rencivm.org address=172.25.14.95
