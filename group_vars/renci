@@ -66,12 +66,6 @@ icat_irods_user: irods
 # irods icat pass
 irods_icat_password: irods
 
-irods_host: "{{icat_host}}"
-irods_user:
-irods_password:
-irods_admin_users:
-irods_temp_dir:
-
 jex_host: "{{services_host}}"
 jex_port: 5004
 jex_nfs_base: /condor/scratch

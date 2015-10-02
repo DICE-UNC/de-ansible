@@ -7,24 +7,4 @@
   roles:
    - role: common
    - role: postgres
-   #-role: irods
-
-- hosts: irods
-  sudo: yes
-  sudo_user: postgres
-  gather_facts: no
-  tasks:
-   #- include: roles/irods/tasks/db.yml
-
-# Install iCAT dfc1
-- hosts: irods1
-  sudo: yes
-  roles:
-  # - role: icat
-
-# Install iCAT dfc2
-- hosts: irods2
-  sudo: yes
-  roles:
-  #  - role: icat
-
+   - role: irods

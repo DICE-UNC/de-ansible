@@ -1,6 +1,6 @@
 [renci]
-irods1.rencivm.org address=172.25.14.235
-irods2.rencivm.org address=172.25.14.148
+irods1.rencivm.org address=172.25.14.235 zone=dfc1 fedzone=dfc2
+irods2.rencivm.org address=172.25.14.148 zone=dfc2 fedzone=dfc1
 desrvc.rencivm.org address=172.25.14.95
 de.rencivm.org address=172.25.14.69
 foundation.rencivm.org address=172.25.14.145
