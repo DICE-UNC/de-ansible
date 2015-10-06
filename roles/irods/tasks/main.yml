@@ -4,11 +4,23 @@
   get_url: url={{ irods_icat }} dest=/home/{{ ansible_ssh_user }}/
 
 - name: download iRODS postgreSQL plugin
-  get_url: url={{ irods_postgre }} dest=/home/{{ ansible_ssh_user }}/
+  get_url: url={{ irods_postgres }} dest=/home/{{ ansible_ssh_user }}/
 
-- name: Install iCAT and Database Plugins
+- name: install iRODS dependencies
+  apt:
+      name: "{{item}}"
+      state: latest
+  with_items:
+      - python-jsonschema
+
+- name: Install iCAT  Plugins
   shell: 
-     dpkg -i /home/{{ ansible_ssh_user }}/{{ icat_pkg }} /home/{{ ansible_ssh_user }}/{{ postgre_pkg }};
+     dpkg -i /home/{{ ansible_ssh_user }}/{{ icat_pkg }};
+     apt-get -y -f install
+
+- name: Install  Database Plugins
+  shell:
+     dpkg -i  /home/{{ ansible_ssh_user }}/{{ postgres_pkg }};
      apt-get -y -f install
 
 - name: response bootstrapping
