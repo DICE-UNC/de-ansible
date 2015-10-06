@@ -11,4 +11,6 @@ zone_key: zonekey
 negotiation_key: negotiationkey
 control_plane_port: 1248
 control_plane_key: controlplanekey
-schema_uri:
+schema_uri: https://schemas.irods.org/configuration
+irods_port: 1247
+irods_admin: rods

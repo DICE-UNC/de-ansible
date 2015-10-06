@@ -2,3 +2,4 @@
 
 For testing purposes, this script will install, configure, and manage a pair of federated iRODS servers
 
+ansible-playbook irods.yml --check --inventory inventories/renci.yaml --extra-vars "irods_passwd=xxx icat_password=xxxx" -K

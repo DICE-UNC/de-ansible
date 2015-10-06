@@ -26,3 +26,25 @@
 
 - name: config iCAT server
   shell: /var/lib/irods/packaging/setup_irods.sh < /opt/irods/setup_responses
+
+- name: copy in DE core.re
+  copy: src=core.re dest=/etc/irods/ owner=irods group=irods mode=0644
+
+- name: copy in DE ipc-amqp.re
+  copy: src=ipc-amqp.re dest=/etc/irods/ owner=irods group=irods mode=0644
+
+- name: copy in DE ipc-custom.re
+  copy: src=ipc-custom.re dest=/etc/irods/ owner=irods group=irods mode=0644
+
+- name: copy in DE ipc-env.re
+  copy: src=ipc-env.re dest=/etc/irods/ owner=irods group=irods mode=0644
+
+- name: copy in DE ipc-json.re
+  copy: src=ipc-json.re dest=/etc/irods/ owner=irods group=irods mode=0644
+
+- name: copy in DE ipc-logic.re
+  copy: src=ipc-logic.re dest=/etc/irods/ owner=irods group=irods mode=0644
+
+- name: copy in DE ipc-uuid.re
+  copy: src=ipc-uuid.re dest=/etc/irods/ owner=irods group=irods mode=0644
+

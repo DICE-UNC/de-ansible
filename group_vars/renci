@@ -65,6 +65,8 @@ icat_db: ICAT
 icat_irods_user: irods
 # irods icat pass
 irods_icat_password: irods
+# default resource name
+irods_default_resource: demoResc
 
 jex_host: "{{services_host}}"
 jex_port: 5004
