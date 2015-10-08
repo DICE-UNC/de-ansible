@@ -1,0 +1,9 @@
+# THIS ANSIBLE PLAYBOOK FOR DEPLOYING AND INSTALLATION CAS AND LDAP
+# current - Mike Conway
+- hosts: cas
+  sudo: yes
+  sudo_user: root
+  roles:
+   - role: common
+   - role: ldap
+   #- role: cas

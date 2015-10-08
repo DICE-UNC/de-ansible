@@ -1,0 +1,6 @@
+# basic defaults
+ldap_genadminpw: password
+ldap_password: password
+ldap_host: localhost
+ldap_slapd_dpkg_reconfigure_done: false
+dpkg_reconfigure: false

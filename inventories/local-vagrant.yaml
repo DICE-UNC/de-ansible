@@ -1,0 +1,26 @@
+[systems]
+
+[services]
+
+[anon-files]
+
+[irods1]
+
+[irods2]
+
+[irods]
+
+[ui]
+
+[db]
+
+[condor]
+
+[condor-submission]
+
+[amqp-brokers]
+
+[elasticsearch]
+
+[cas]
+cas.localvagrant.org address=192.168.50.10
