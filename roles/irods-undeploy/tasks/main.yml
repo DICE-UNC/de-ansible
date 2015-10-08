@@ -1,0 +1,17 @@
+---
+
+
+- name: Uninstall iCAT  Plugins
+  shell: 
+     dpkg --remove --force-all irods-icat
+
+- name: Unnstall  Database Plugins
+  shell:
+    dpkg --remove --force-all irods-database-plugin-postgres
+
+- name: delete setup files
+  shell: 
+     rm -rf /var/lib/irods;
+     rm -rf /etc/irods;
+     rm -rf /tmp/irods
+

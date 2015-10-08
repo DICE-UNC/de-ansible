@@ -6,7 +6,7 @@ RESPFILE=$1
 echo "{{ irods_service_acct_user }}" > $RESPFILE           # service account user ID
 echo "{{ irods_service_acct_user }}" >> $RESPFILE         # service account group ID
 echo "{{ zone }}" >> $RESPFILE              # initial zone name
-echo "{{ icat_port }}" >> $RESPFILE             # service port #
+echo "{{ irods_port }}" >> $RESPFILE             # service port #
 echo "{{ port_range_begin }}" >> $RESPFILE      # transport starting port #
 echo "{{ port_range_end }}" >> $RESPFILE        # transport ending port #
 echo "{{ vault_path }}" >> $RESPFILE 	# vault path
@@ -21,6 +21,6 @@ echo "yes" >> $RESPFILE                   	# confirm iRODS settings
 echo "{{ inventory_hostname }}" >> $RESPFILE    # database hostname
 echo "{{ icat_port }}" >> $RESPFILE                # database port
 echo "{{ icat_db }}" >> $RESPFILE                # database DB name
-echo "{{ icat_user }}" >> $RESPFILE                # database admin username
-echo "{{ icat_password }}" >> $RESPFILE        	# database admin password
+echo "{{ icat_irods_user }}" >> $RESPFILE                # database admin username
+echo "{{ icat_irods_password }}" >> $RESPFILE        	# database admin password
 echo "yes" >> $RESPFILE                   	# confirm database settings

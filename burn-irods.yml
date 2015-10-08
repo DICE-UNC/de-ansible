@@ -1,0 +1,8 @@
+# THIS ANSIBLE PLAYBOOK FOR REMOVING IRODS
+# current - Mike Conway
+- hosts: irods
+  sudo: yes
+  sudo_user: root
+  roles:
+   - role: irods-undeploy
+
