@@ -1,51 +1,15 @@
----
+#- name: Add postgres repository
+#  apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main' state=present
 
-# Official PostgreSQL [repository] for debian-based distributions
-# [repository]: http://www.postgresql.org/download/
+#- name: Add postgres repository key
+#  apt_key: url=http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc state=present
 
-- name: Adding APT repository key
-  when: ansible_os_family == 'Debian'
-  sudo: yes
-  apt_key:
-    id: ACCC4CF8
-    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-  tags:
-    - postgresql
-    - db
-    - repo
+#- name: ensure apt cache is up to date
+#  apt: update_cache=yes
 
-- name: Add PostgreSQL official APT repository
-  #when: ansible_os_family == 'Debian'
-  sudo: yes
-  apt_repository:
-    repo: "deb http://apt.postgresql.org/pub/repos/apt/ {{ansible_distribution_release}}-pgdg main"
-  tags:
-    - postgresql
-    - db
-    - repo
-
-- name: Install PostgreSQL
-  when: ansible_os_family == 'Debian'
-  sudo: yes
-  apt:
-    name: "postgresql-{{postgresql_version}}"
-    state: present
-    update_cache: yes
-    cache_valid_time: 3600
-  tags:
-    - postgresql
-    - db
-    - deps
-
-- name: Install dependencies for the Ansible module
-  when: ansible_os_family == 'Debian'
-  sudo: yes
-  apt:
-    name: "{{item}}"
-    state: latest
+- name: ensure packages are installed
+  apt: name={{item}} state=present
   with_items:
-    - python-psycopg2
-  tags:
-    - postgresql
-    - db
-    - deps
+        - postgresql
+        - libpq-dev
+        - python-psycopg2
