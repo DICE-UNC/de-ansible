@@ -6,13 +6,6 @@ many notes here...mostly related to vexing problems with vagrant not doing thing
 
 DICE variant, preload an ubs14 image like so..
 
-# xxxxx vagrant box add dice/ubuntu14  https://github.com/kraksoft/vagrant-box-ubuntu/releases/download/14.04/ubuntu-14.04-amd64.box  --provider virtualbox
-
-# vagrant box add dice/ubuntu12 http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210.box
-
-# vagrant box add dice/centos7 https://github.com/tommy-muehle/puppet-vagrant-boxes/releases/download/1.1.0/centos-7.0-x86_64.box --provider virtualbox
-
-vagrant box add ubuntu/trusty64 https://vagrantcloud.com/ubuntu/boxes/trusty64/versions/14.04/providers/virtualbox.box --provider virtualbox
 
 If you run into errors with VBox guest additions, use this sequence
 

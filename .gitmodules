@@ -1,0 +1,3 @@
+[submodule "library/ansible-plugins"]
+	path = library/ansible-plugins
+	url = https://github.com/ginsys/ansible-plugins.git
