@@ -6,13 +6,21 @@
     - ldap
     - auth
 
-- name: ldap | install ldap packages
-  apt: pkg=$item state=installed
-  with_items:
-    - slapd 
-    - ldap-utils
-    - ldapscripts 
-  tags: 
+- name: ldap | install slapd
+  apt: name=slapd state=installed
+  tags:
+      - ldap
+      - auth
+
+- name: ldap | install ldap-utils
+  apt: name=ldap-utils state=installed
+  tags:
+      - ldap
+      - auth
+
+- name: ldap | install ldap-scripts
+  apt: name=ldapscripts state=installed
+  tags:
     - ldap
     - auth
 
@@ -39,7 +47,7 @@
   when: ldap_slapd_already_configured.stdout.find('found') == -1
 
 - name: ldap | Ugly hack to make sure the slapd reconfigure does not get run more than once
-  shell: touch $ldap_slapd_dpkg_reconfigure_done creates=$ldap_slapd_dpkg_reconfigure_done
+  shell: touch {{ldap_slapd_dpkg_reconfigure_done}}
   tags: 
     - ldap
     - auth

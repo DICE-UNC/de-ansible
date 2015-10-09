@@ -1,3 +1,6 @@
+[all]
+cas.localvagrant.org address=192.168.50.10
+
 [systems]
 
 [services]
@@ -23,4 +26,4 @@
 [elasticsearch]
 
 [cas]
-cas.localvagrant.org address=192.168.50.10
+cas.localvagrant.org
