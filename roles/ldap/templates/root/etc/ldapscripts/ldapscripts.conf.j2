@@ -24,9 +24,8 @@
 
 # LDAP server
 # DEBIAN: values from /etc/pam_ldap.conf are used.
-SERVER="{{ldap_server}}"
+SERVER="ldap://{{inventory_hostname}}"
 #SERVER="ldap://localhost"
-
 
 # Suffixes
 # DEBIAN: values from /etc/pam_ldap.conf are used.
