@@ -1,0 +1,31 @@
+dn: cn=testde1,dc=renci,dc=org
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: testde1
+sn: testde1
+uid: testde1
+userPassword: testde1
+
+dn: cn=testde2,dc=renci,dc=org
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: testde2
+sn: testde2
+uid: testde2
+userPassword: testde2
+
+
+dn: cn=testde3,dc=renci,dc=org
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: testde3
+sn: testde3
+uid: testde3
+userPassword: testde3
+

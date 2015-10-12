@@ -6,12 +6,18 @@ ldap_slapd_dpkg_reconfigure_done: false
 dpkg_reconfigure: false
 global_user: root
 global_use_sudo: false
-ldap_include_create_user_and_groups: false
-ldap_include_create_indexes: false
+ldap_include_create_user_and_groups: true
+ldap_include_create_indexes: true
 ldap_include_create_autofs: false
 ldap_include_create_automount: false
 ldap_include_create_sudo: false
 ldap_include_create_sudo_master: false
+
+ldap_dc: DC=dfc,DC=org
+ldap_g_suffix: Groups
+ldap_u_suffix: Users
+ldap_m_suffix: Machines
+
 
 # This is used to store files that indicate that an operation has been run. Note that if you change this after you have
 # run the script, you may clobber your previous install and/or other bad things. I do not know if if /etc/ansible is
