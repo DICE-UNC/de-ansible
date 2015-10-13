@@ -13,6 +13,7 @@ ldap_include_create_autofs: false
 ldap_include_create_automount: false
 ldap_include_create_sudo: false
 ldap_include_create_sudo_master: false
+ldap_include_testde: true
 
 ldap_dc: DC=dfc,DC=org
 ldap_g_suffix: Groups
@@ -34,4 +35,6 @@ ldap_create_autofs_done: "{{ldap_done_dir}}/create-autofs"
 ldap_create_automount_done: "{{ldap_done_dir}}/create-automount"
 ldap_create_sudo_done: "{{ldap_done_dir}}/create-sudo"
 ldap_create_sudo_master_done: "{{ldap_done_dir}}/create-sudo-master"
+ldap_create_testde_done: "{{ldap_done_dir}}/create-testde"
+
 ldap_slapd_dpkg_reconfigure_done: "{{ldap_done_dir}}/slapd-dpkg-reconfigure-done"

@@ -92,3 +92,18 @@
   tags: 
     - ldap
     - auth
+
+- name: ldap | Copy over the test de ldif if flagged for test setup
+  template: src=root/tmp/test-de-user.ldif.j2 dest=/tmp/testde.ldif owner=root group=root
+  when: ldap_include_testde
+  tags:
+    - ldap
+    - auth
+
+
+- name: ldap | Install testde users
+  shell: ldapadd -w {{ldap_password}} -x -D cn=admin,{{ldap_dc}} -f testde.ldif && touch {{ldap_create_testde_done}} chdir=/tmp creates={{ldap_create_testde_done}}
+  when: ldap_include_testde
+  tags:
+    - ldap
+    - auth
