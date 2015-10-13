@@ -1,6 +1,0 @@
----
-- hosts: all
-  sudo: true
-  tasks:
-    - name: provision VM
-      debug: msg="System {{ inventory_hostname }} being provisioned"

@@ -17,7 +17,7 @@
   debug: var={{ldap_dc}}
 
 - name: ldap | Install users and groups 
-  shell: ldapadd -w {{ldap_password}} -x -D cn=admin,{{ldap_dc}} -f create_users_and_groups.ldif && touch $ldap_create_user_and_groups_done chdir=/tmp creates=$ldap_create_user_and_groups_done
+  shell: ldapadd -w {{ldap_password}} -x -D cn=admin,{{ldap_dc}} -f create_users_and_groups.ldif && touch {{ldap_create_user_and_groups_done}} chdir=/tmp creates={{ldap_create_user_and_groups_done}}
   when: ldap_include_create_user_and_groups
   tags: 
     - ldap 
@@ -31,7 +31,7 @@
     - auth
 
 - name: ldap | Install indexes
-  shell: ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f create_indexes.ldif && touch $ldap_create_indexes_done chdir=/tmp creates=$ldap_create_indexes_done
+  shell: ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f create_indexes.ldif && touch {{ldap_create_indexes_done}} chdir=/tmp creates={{ldap_create_indexes_done}}
   when: ldap_include_create_indexes
   tags: 
     - ldap
@@ -45,7 +45,7 @@
     - auth
 
 - name: ldap | Install autofs
-  shell: ldapadd -Y EXTERNAL -H ldapi:/// -f create_autofs.ldif && touch $ldap_create_autofs_done chdir=/tmp creates=$ldap_create_autofs_done
+  shell: ldapadd -Y EXTERNAL -H ldapi:/// -f create_autofs.ldif && touch {{ldap_create_autofs_done}} chdir=/tmp creates={{ldap_create_autofs_done}}
   when: ldap_include_create_autofs
   tags: 
     - ldap
@@ -59,7 +59,7 @@
     - auth
 
 - name: ldap | Install automount
-  shell: ldapadd -w $ldap_password -x -D cn=admin,{{ldap_dc}} -f create_automount.ldif && touch {{ldap_create_automount_done}} chdir=/tmp creates=$ldap_create_automount_done
+  shell: ldapadd -w $ldap_password -x -D cn=admin,{{ldap_dc}} -f create_automount.ldif && touch {{ldap_create_automount_done}} chdir=/tmp creates={{ldap_create_automount_done}}
   when: ldap_include_create_automount
   tags: 
     - ldap
