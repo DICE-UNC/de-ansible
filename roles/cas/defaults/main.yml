@@ -1,0 +1,8 @@
+tomcat_user: tomcat
+cas_port: 8080
+ldap_port: 389
+ldap_use_starttls: false
+ldap_search_base_dn:  ou=Users,DC=dfc,DC=org
+ldap_manager_dn: cn=admin,DC=dfc,DC=org
+ldap_admin_password: password
+do_ssl_config: false
