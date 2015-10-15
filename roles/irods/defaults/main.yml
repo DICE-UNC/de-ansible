@@ -19,4 +19,5 @@ icat_db: ICAT
 # irods icat user
 icat_irods_user: irods
 # irods icat pass
-icat_irods_password: ""
+irods_icat_password: irods
+icat_port: 5432

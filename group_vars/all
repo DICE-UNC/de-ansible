@@ -131,11 +131,11 @@ es_scroll_size: 1000
 
 fs_max_paths_in_request: 1000
 
-icat_host:
-icat_port:
-icat_user:
-icat_password:
-icat_db:
+#icat_host:
+#icat_port:
+#icat_user:
+#icat_password:
+#icat_db:
 
 infosquito_notify_enabled: true
 infosquito_notify_count: 10000

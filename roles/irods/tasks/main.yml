@@ -5,7 +5,6 @@
   sudo_user: postgres
   postgresql_db: name={{icat_db}}
 
-
 - name: grant access to user
   sudo: yes
   sudo_user: postgres
@@ -28,6 +27,7 @@
       state: latest
   with_items:
       - python-jsonschema
+      - python-pip
 
 - name: Install iCAT  Plugins
   shell: 

@@ -5,6 +5,6 @@
   sudo: yes
   sudo_user: root
   roles:
-   - role: common
-   - role: postgres
+  # - role: common
+   #- role: postgres
    - role: irods
