@@ -9,6 +9,3 @@
 
 - name: restart apache
   service: name={{apache}} state=restarted
-
-- name: restart mysql
-  service: name=mysqld state=restarted

@@ -6,3 +6,6 @@ ldap_search_base_dn:  ou=Users,DC=dfc,DC=org
 ldap_manager_dn: cn=admin,DC=dfc,DC=org
 ldap_admin_password: password
 do_ssl_config: false
+cas_context_path: cas
+cas_git_url: https://github.com/github/cas-overlay.git
+cas_git_project_name: cas-overlay

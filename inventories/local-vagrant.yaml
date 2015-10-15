@@ -1,5 +1,6 @@
 [all]
 cas.localvagrant.org address=192.168.50.10
+irods1.localvagrant.org address=192.168.50.11
 
 [systems]
 
@@ -8,10 +9,12 @@ cas.localvagrant.org address=192.168.50.10
 [anon-files]
 
 [irods1]
+irods1.localvagrant.org
 
 [irods2]
 
 [irods]
+irods1.localvagrant.org
 
 [ui]
 

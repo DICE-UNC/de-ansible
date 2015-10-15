@@ -2,9 +2,24 @@
 
 # author: Mike Conway - DICE
 
-many notes here...mostly related to vexing problems with vagrant not doing things it should - MC
 
-DICE variant, preload an ubs14 image like so..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 If you run into errors with VBox guest additions, use this sequence

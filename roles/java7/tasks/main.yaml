@@ -1,12 +1,12 @@
 - name: make sure OpenJDK7 is installed
   sudo: True
-  yum: name=java-1.7.0-openjdk state=present
+  apt: name=openjdk-7-jre  state=present update_cache=true
   tags:
     - java
 
 - name: make sure OpenJDK7 Devel is installed
   sudo: True
-  yum: name=java-1.7.0-openjdk-devel state=present
+  apt: name=openjdk-7-jdk state=present
   tags:
     - java
 
