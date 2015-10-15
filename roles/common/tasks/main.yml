@@ -20,8 +20,8 @@
 #- name: copy private key
 #  copy: src=id_rsa dest=/home/{{ ansible_ssh_user }}/.ssh/id_rsa
 
-- name: copy public key
-  copy: src=id_rsa.pub  dest=/home/{{ ansible_ssh_user }}/.ssh/id_rsa.pub
+#- name: copy public key
+#  copy: src=id_rsa.pub  dest=/home/{{ ansible_ssh_user }}/.ssh/id_rsa.pub
 
 #- name: authorized keys
 #  shell: cat /home/{{ ansible_ssh_user }}/.ssh/id_rsa.pub > /home/{{ ansible_ssh_user }}/.ssh/authorized_keys

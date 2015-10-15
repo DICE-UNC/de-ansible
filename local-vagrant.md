@@ -15,5 +15,25 @@ For convenience, you can copy these hosts into your own hosts conf for routing
 192.168.50.11 irods1.localvagrant.org
 192.168.50.12 irods2.localvagrant.org
 
+## host setup
+
+For each vagrant host, one must vagrant up the box
+
+For a fresh box, then
+
+* make sure the above host names are in your etc/hosts file, they are standardized for local testing
+
+* vagrant ssh in and sudo to root
+
+* add your ansible user and set a password
+
+* add that user to the sudoers
+
+* share your ssh key by installing and using https://github.com/DICE-UNC/ssh-copy-id-for-OSX
+
+```
+
+ssh-copy-id user@machinename
 
 
+```
