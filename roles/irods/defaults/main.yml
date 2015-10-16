@@ -3,7 +3,7 @@ irods_icat: ftp://ftp.renci.org/pub/irods/releases/4.1.6/ubuntu14/irods-icat-4.1
 irods_postgres: ftp://ftp.renci.org/pub/irods/releases/4.1.6/ubuntu14/irods-database-plugin-postgres-1.6-ubuntu14-x86_64.deb
 icat_pkg: irods-icat-4.1.6-ubuntu14-x86_64.deb
 postgres_pkg: irods-database-plugin-postgres-1.6-ubuntu14-x86_64.deb
-postgresql_listen_addresses: "*"
+#postgresql_listen_addresses: "*"
 irods_service_acct_user: irods
 port_range_begin: 20000
 port_range_end: 20199

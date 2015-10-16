@@ -38,6 +38,7 @@ postgresql_log_directory: "/var/log/postgresql"
 # listen on every available address.
 postgresql_listen_addresses:
   - localhost
+  - "{{ address }}"
 postgresql_port: 5432
 
 # Authenticated connections that will be inserted in `pg_hba.conf`.

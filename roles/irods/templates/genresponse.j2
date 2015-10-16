@@ -18,7 +18,8 @@ echo "{{ schema_uri }}" >> $RESPFILE            # schema validation URI
 echo "{{ irods_admin }}" >> $RESPFILE       	# iRODS admin account
 echo "{{ irods_passwd }}" >> $RESPFILE      	# iRODS admin password
 echo "yes" >> $RESPFILE                   	# confirm iRODS settings
-echo "{{ inventory_hostname }}" >> $RESPFILE    # database hostname
+#echo "{{ inventory_hostname }}" >> $RESPFILE    # database hostname
+echo "{{ hostvars[host]['address'] }}" >> $RESPFILE    # database hostname
 echo "{{ icat_port }}" >> $RESPFILE                # database port
 echo "{{ icat_db }}" >> $RESPFILE                # database DB name
 echo "{{ icat_irods_user }}" >> $RESPFILE                # database admin username
