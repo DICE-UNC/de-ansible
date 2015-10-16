@@ -52,6 +52,9 @@
 - name: Install python packages
   shell: pip install -U pip jsonschema jinja2
 
+- name: irods setup requires FQDN
+  hostname: name={{ ansible_fqdn }}
+
 - name: config iCAT server
   shell: /var/lib/irods/packaging/setup_irods.sh < /opt/irods/setup_responses
 
