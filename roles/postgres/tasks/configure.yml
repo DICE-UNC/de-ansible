@@ -53,3 +53,5 @@
     - postgresql
     - db
     - conf
+
+- meta: flush_handlers
