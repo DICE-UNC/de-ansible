@@ -8,20 +8,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 If you run into errors with VBox guest additions, use this sequence
 
 If you not have vbguest plugin, install it:
