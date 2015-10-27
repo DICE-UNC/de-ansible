@@ -4,3 +4,5 @@ de-ansible.iml
 de-ansible.ipr
 de-ansible.iws
 *.swp
+.idea
+.vagrant
