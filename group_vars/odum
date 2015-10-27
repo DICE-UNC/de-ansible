@@ -191,13 +191,13 @@ data_info:
 dewey_listen_port:
 
 db_driver: org.postgresql.Driver
-db_user:
-db_password:
-db_host:
-db_name:
-db_port:
+db_user:de
+db_password:notprod
+db_host:localhost
+db_name:de
+db_port:54320
 db_admin: postgres
-db_admin_password:
+db_admin_password:notprod
 
 db_vendor: postgresql
 db_allowed_IPv4_remote:
@@ -648,3 +648,5 @@ time: "{{ansible_date_time.date}}:{{ansible_date_time.time}}"
 logging:
   dir: /var/log/de
   conf_dir: "{{de_config_dir}}/logging"
+
+
