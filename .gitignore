@@ -7,5 +7,3 @@ de-ansible.iws
 .vagrant
 local-vagrant/vagrant_ansible*
 *.swp
-.idea
-.vagrant
