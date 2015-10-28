@@ -191,13 +191,13 @@ data_info:
 dewey_listen_port:
 
 db_driver: org.postgresql.Driver
-db_user:de
-db_password:notprod
-db_host:localhost
-db_name:de
-db_port:54320
+db_user: de
+db_password: notprod
+db_host: localhost
+db_name: de
+db_port: 54320
 db_admin: postgres
-db_admin_password:notprod
+db_admin_password: notprod
 
 db_vendor: postgresql
 db_allowed_IPv4_remote:
