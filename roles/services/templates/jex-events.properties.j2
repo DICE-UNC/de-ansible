@@ -1,5 +1,6 @@
 {
   "AMQPURI" : "amqp://{{ amqp_user }}:{{ amqp_password }}@{{ amqp_broker_host }}:{{ amqp_broker_port }}/",
+  "EventLog" : "{{ condor_log_monitor_event_log }}",
   "ExchangeName" : "{{ amqp_condor_events_exchange }}",
   "ExchangeType" : "{{ amqp_condor_events_exchange_type }}",
   "RoutingKey" : "{{ amqp_condor_events_exchange_routing_key }}",
@@ -12,6 +13,7 @@
   "QueueDurable" : true,
   "QueueAutodelete" : false,
   "QueueInternal" : false,
+  "QueueExclusive" : false,
   "QueueNoWait" : false,
   "ConsumerTag" : "tag",
   "DBURI" : "postgres://{{ jexdb_user }}:{{ jexdb_password }}@{{ jexdb_host }}:{{ jexdb_port }}/{{ jexdb_db }}?sslmode=disable",
