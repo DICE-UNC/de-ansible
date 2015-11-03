@@ -12,21 +12,31 @@
     - role: notify-chat
       msg: "Initializing databases"
 
+- hosts: de-db
+
     - role: update-database-de
       sudo: False
       fmode: "init"
+
+- hosts: jex-db
 
     - role: update-database-jex
       sudo: False
       fmode: "init"
 
+- hosts: metadata-db
+
     - role: update-database-metadata
       sudo: False
       fmode: "init"
 
+- hosts: notification-db
+
     - role: update-database-notifications
       sudo: False
       fmode: "init"
+
+- hosts: services
 
     - role: notify-chat
       msg: "Done initializing databases"
