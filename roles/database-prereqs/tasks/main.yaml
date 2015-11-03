@@ -1,17 +1,17 @@
 ---
-- name: install centos5 postgresql92 yum repo file
+- name: install centos5 postgresql94 yum repo file
   sudo: yes
-  yum: name=pgdg-centos92 state=latest
+  yum: name=pgdg-centos94 state=latest
   when: ansible_distribution == "CentOS" and
         ansible_distribution_major_version == "5"
 
-- name: install centos6 postgresql92 yum repo file
+- name: install centos6 postgresql94 yum repo file
   sudo: yes
-  yum: name=http://yum.postgresql.org/9.2/redhat/rhel-6.6-x86_64/pgdg-centos92-9.2-6.noarch.rpm state=present
+  yum: name= http://yum.postgresql.org/9.4/redhat/rhel-6-x86_64/pgdg-centos94-9.4-2.noarch.rpm state=present
   when: ansible_distribution == "CentOS" and
         ansible_distribution_major_version == "6"
 
-- name: install centos7 postgresql92 yum repo file
+- name: install centos7 postgresql94 yum repo file
   sudo: yes
   yum: name=http://yum.postgresql.org/9.2/redhat/rhel-7-x86_64/pgdg-centos92-9.2-1.noarch.rpm state=present
   when: ansible_distribution == "CentOS" and
@@ -19,7 +19,7 @@
 
 - name: postgresql is installed via yum
   sudo: yes
-  yum: name=postgresql92 state=present
+  yum: name=postgresql94 state=present
   when: ansible_distribution == "CentOS"
 
 - name: psycopg2 is installed via yum
