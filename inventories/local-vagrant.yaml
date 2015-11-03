@@ -1,6 +1,7 @@
 [all]
 cas.localvagrant.org address=192.168.50.10
 irods1.localvagrant.org address=192.168.50.11 zone=dfc1 fedzone=dfc2
+irods2.localvagrant.org address=192.168.50.12 zone=dfc2 fedzone=dfc1
 
 [systems]
 
@@ -12,9 +13,12 @@ irods1.localvagrant.org address=192.168.50.11 zone=dfc1 fedzone=dfc2
 irods1.localvagrant.org
 
 [irods2]
+irods2.localvagrant.org
+
 
 [irods]
 irods1.localvagrant.org
+irods2.localvagrant.org
 
 [ui]
 
