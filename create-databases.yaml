@@ -13,30 +13,21 @@
       msg: "Initializing databases"
 
 - hosts: de-db
-
-    - role: update-database-de
-      sudo: False
-      fmode: "init"
+    roles:
+      - {role: update-database-de, fmode: "init", sudo: false}
 
 - hosts: jex-db
-
-    - role: update-database-jex
-      sudo: False
-      fmode: "init"
+    roles:
+      - {role: update-database-jex, fmode: "init", sudo: false}
 
 - hosts: metadata-db
-
-    - role: update-database-metadata
-      sudo: False
-      fmode: "init"
+   roles:
+        - {role: update-database-metadata, fmode: "init", sudo: false}
 
 - hosts: notification-db
-
-    - role: update-database-notifications
-      sudo: False
-      fmode: "init"
+    roles:
+        - {role: update-database-notifications, fmode: "init", sudo: false}
 
 - hosts: services
-
-    - role: notify-chat
-      msg: "Done initializing databases"
+    roles:
+    - { role: notify-chat, msg: "Done initializing databases"}
