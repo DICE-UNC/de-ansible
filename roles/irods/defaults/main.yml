@@ -1,7 +1,7 @@
 # basic defaults
-irods_icat: ftp://ftp.renci.org/pub/irods/releases/4.1.6/ubuntu14/irods-icat-4.1.6-ubuntu14-x86_64.deb
+irods_icat_pkg: ftp://ftp.renci.org/pub/irods/releases/4.1.6/ubuntu14/irods-icat-4.1.6-ubuntu14-x86_64.deb
 irods_icat_rpm: ftp://ftp.renci.org/pub/irods/releases/4.1.6/centos7/irods-icat-4.1.6-centos7-x86_64.rpm
-irods_postgres: ftp://ftp.renci.org/pub/irods/releases/4.1.6/ubuntu14/irods-database-plugin-postgres-1.6-ubuntu14-x86_64.deb
+irods_postgres_pkg: ftp://ftp.renci.org/pub/irods/releases/4.1.6/ubuntu14/irods-database-plugin-postgres-1.6-ubuntu14-x86_64.deb
 irods_postgres_rpm: ftp://ftp.renci.org/pub/irods/releases/4.1.6/centos7/irods-database-plugin-postgres-1.6-centos7-x86_64.rpm
 icat_pkg: irods-icat-4.1.6-ubuntu14-x86_64.deb
 icat_rpm: irods-icat-4.1.6-centos7-x86_64.rpm

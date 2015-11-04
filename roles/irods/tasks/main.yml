@@ -19,17 +19,19 @@
   get_url: url={{ irods_icat_pkg }} dest=/home/{{ ansible_ssh_user }}/
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
-- name: download iCAT for CentOS7
-  get_url: url={{ irods_icat_rpm }} dest=/home/{{ ansible_ssh_user }}/
-  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
+# assuming ansible's yum module speaks FTP (below)
+#- name: download iCAT for CentOS7
+#  get_url: url={{ irods_icat_rpm }} dest=/home/{{ ansible_ssh_user }}/
+#  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
 
 - name: download iRODS postgreSQL plugin for Debian
   get_url: url={{ irods_postgres_pkg }} dest=/home/{{ ansible_ssh_user }}/
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
-- name: download iRODS postgreSQL plugin for CentOS7
-  get_url: url={{ irods_postgres_rpm }} dest=/home/{{ ansible_ssh_user }}/
-  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
+# assuming ansible's yum module speaks FTP (below)
+#- name: download iRODS postgreSQL plugin for CentOS7
+#  get_url: url={{ irods_postgres_rpm }} dest=/home/{{ ansible_ssh_user }}/
+#  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
 
 - name: install iRODS dependencies for Debian
   apt:
@@ -56,8 +58,8 @@
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
 - name: Install iCAT: CentOS7
-  shell: 
-     rpm -ivh /home/{{ ansible_ssh_user }}/{{ icat_rpm }};
+  yum: 
+     name=ftp://ftp.renci.org/pub/irods/releases/4.1.6/centos7/irods-icat-4.1.6-centos7-x86_64.rpm state=present
   when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
 
 - name: Install Postgres Plugin: Debian/Ubuntu
@@ -67,8 +69,8 @@
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
 - name: Install Postgres Plugin: CentOS7
-  shell:
-     rpm -ivh /home/{{ ansible_ssh_user }}/{{ postgres_rpm }};
+  yum:
+     name=ftp://ftp.renci.org/pub/irods/releases/4.1.6/centos7/irods-database-plugin-postgres-1.6-centos7-x86_64.rpm state=present
   when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
 
 - name: response bootstrapping
