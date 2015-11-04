@@ -15,29 +15,61 @@
   sudo_user: postgres
   postgresql_user: name={{icat_irods_user}} role_attr_flags=NOSUPERUSER,NOCREATEDB
 
-- name: download iCAT
-  get_url: url={{ irods_icat }} dest=/home/{{ ansible_ssh_user }}/
+- name: download iCAT for Debian
+  get_url: url={{ irods_icat_pkg }} dest=/home/{{ ansible_ssh_user }}/
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
-- name: download iRODS postgreSQL plugin
-  get_url: url={{ irods_postgres }} dest=/home/{{ ansible_ssh_user }}/
+- name: download iCAT for CentOS7
+  get_url: url={{ irods_icat_rpm }} dest=/home/{{ ansible_ssh_user }}/
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
 
-- name: install iRODS dependencies
+- name: download iRODS postgreSQL plugin for Debian
+  get_url: url={{ irods_postgres_pkg }} dest=/home/{{ ansible_ssh_user }}/
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: download iRODS postgreSQL plugin for CentOS7
+  get_url: url={{ irods_postgres_rpm }} dest=/home/{{ ansible_ssh_user }}/
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
+
+- name: install iRODS dependencies for Debian
   apt:
       name: "{{item}}"
       state: latest
   with_items:
       - python-jsonschema
       - python-pip
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
-- name: Install iCAT  Plugins
+- name: install iRODS dependencies for CentOS7
+  yum:
+      name: "{{item}}"
+      state: latest
+  with_items:
+      - python-jsonschema
+      - python-pip
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
+
+- name: Install iCAT: Debian
   shell: 
      dpkg -i /home/{{ ansible_ssh_user }}/{{ icat_pkg }};
      apt-get -y -f install
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
-- name: Install  Database Plugins
+- name: Install iCAT: CentOS7
+  shell: 
+     rpm -ivh /home/{{ ansible_ssh_user }}/{{ icat_rpm }};
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
+
+- name: Install Postgres Plugin: Debian/Ubuntu
   shell:
      dpkg -i  /home/{{ ansible_ssh_user }}/{{ postgres_pkg }};
      apt-get -y -f install
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Install Postgres Plugin: CentOS7
+  shell:
+     rpm -ivh /home/{{ ansible_ssh_user }}/{{ postgres_rpm }};
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
 
 - name: response bootstrapping
   template: src=genresponse.j2 dest=/home/{{ ansible_ssh_user }}/genresponse.sh
