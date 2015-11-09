@@ -193,11 +193,11 @@ dewey_listen_port:
 db_driver: org.postgresql.Driver
 db_user: de
 db_password: notprod
-db_host: localhost
+db_host: 192.168.77.13
 db_name: de
-db_port: 54320
+db_port: 5432
 db_admin: postgres
-db_admin_password: notprod
+db_admin_password: notprodadmin
 
 db_vendor: postgresql
 db_allowed_IPv4_remote:
@@ -569,6 +569,10 @@ pgp_key_password:
 
 prod_deployment: false
 
+rserve_host: 192.168.77.15
+rserve_user: rserve
+rserve_pass: rserve
+
 saved_searches_host:
 saved_searches_log_file: /home/iplant/logs/saved-searches.log
 saved_searches:
@@ -648,5 +652,6 @@ time: "{{ansible_date_time.date}}:{{ansible_date_time.time}}"
 logging:
   dir: /var/log/de
   conf_dir: "{{de_config_dir}}/logging"
+
 
 
