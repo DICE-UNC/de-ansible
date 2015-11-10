@@ -3,6 +3,9 @@ global_config_dir: /etc/iplant
 de_config_dir: "{{ global_config_dir }}/de"
 local_cfg_dest: cfg_files
 
+remote_registry: discoenv
+unc_remote_registry: de
+
 docker:
   log_driver: syslog
   tag: latest

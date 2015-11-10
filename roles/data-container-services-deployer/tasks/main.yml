@@ -9,7 +9,7 @@
 
 - name:  pull iplant_data container
   sudo: yes
-  shell: docker pull "{{ remote_registry }}/{{ data_container.image_name }}:latest"
+  shell: docker pull "{{ unc_remote_registry }}/{{ data_container.image_name }}:latest"
   tags:
       - docker_pull
 
