@@ -7,11 +7,35 @@
   tags:
       - docker_rm_iplant_data
 
-- name:  pull iplant_data container
+# iplant original
+#- name:  pull iplant_data container
+#  sudo: yes
+#  shell: docker pull "{{ data_container.unc_registry_repo }}/{{ data_container.image_name }}:latest"
+#  tags:
+#      - docker_pull
+
+# stupid busted try 1a
+#- name: Install docker-py as a workaround for Ansible/Docker API version error
+#  pip: name=docker-py #version=1.2.3
+#  sudo: yes
+
+# stupid busted try 1b
+#- name: pull iplant_data container
+#  sudo: yes
+#  docker:
+#    docker_url: "{{ data_container.unc_registry_repo }}"
+#    registry: "{{ data_container.unc_registry_repo }}"
+#    image: "{{ data_container.image_name }}"
+#    username: "{{ data_container.unc_registry_user }}"
+#    password: "{{ data_container.unc_registry_pass }}"
+#    #docker_api_version: "{{ data_container.unc_docker_api_version }}"
+#    state: started
+#  tags:
+#    - docker_pull
+
+- name: pull iplant_data container
   sudo: yes
-  shell: docker pull "{{ unc_remote_registry }}/{{ data_container.image_name }}:latest"
-  tags:
-      - docker_pull
+  shell: "docker login -e {{ data_container.unc_registry_mail }} -p {{ data_container.unc_registry_pass }} -u {{ data_container.unc_registry_user }} {{ data_container.unc_registry_host }}"
 
 - include: CentOS-7.yaml
   when: ansible_distribution == "CentOS" and
