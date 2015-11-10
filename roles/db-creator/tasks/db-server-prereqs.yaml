@@ -13,7 +13,8 @@
 - name: post install -- init postgres
   sudo: yes
   when: centos_server_install|changed
-  command: service postgresql-9.4 initdb
+  #command: service postgresql-9.4 initdb
+  command: /usr/pgsql-9.4/bin/postgresql94-setup initdb
   register: postgresql_init
 
 - name: place postgresql.conf
@@ -26,6 +27,8 @@
   sudo: yes
   when: (postgresql_init|changed or conf|changed) and ansible_distribution == "CentOS"
   service: name=postgresql-9.4 state=restarted
+
+- meta: flush-handlers
 
 - name: post install -- set admin user's password
   sudo: yes

@@ -13,7 +13,7 @@
 
 - name: install centos7 postgresql94 yum repo file
   sudo: yes
-  yum: name=http://yum.postgresql.org/9.2/redhat/rhel-7-x86_64/pgdg-centos92-9.2-1.noarch.rpm state=present
+  yum: name=http://yum.postgresql.org/9.4/redhat/rhel-7-x86_64/pgdg-centos94-9.4-2.noarch.rpm
   when: ansible_distribution == "CentOS" and
         ansible_distribution_major_version == "7"
 
