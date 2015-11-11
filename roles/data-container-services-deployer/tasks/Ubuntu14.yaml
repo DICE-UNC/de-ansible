@@ -5,15 +5,9 @@
   tags:
       - update_service_files
 
-- name: enable iplant-data service
-  sudo: yes
-  shell: system enable iplant-data
-  tags:
-      - update_service_files
- 
 - name: start iplant-data container
   sudo: yes
-  service: name={{data_container.service_name}} state=restarted
+  service: name={{ data_container.service_name_short }} state=restarted
   tags:
       - restart_services
       - restart_iplant_data
