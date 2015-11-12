@@ -7,9 +7,15 @@
   tags:
       - docker_rm_iplant_data
 
-- name: pull iplant_data container
+- name: login to data_container repository
   sudo: yes
   shell: "docker login -e {{ data_container.unc_registry_mail }} -p {{ data_container.unc_registry_pass }} -u {{ data_container.unc_registry_user }} {{ data_container.unc_registry_host }}"
+
+- name: pull de-data container
+  sudo: yes
+  shell: docker pull "{{ data_container.unc_registry_host }}/{{ data_container.image_name }}:latest"
+  tags:
+      - docker_pull
 
 - include: CentOS-7.yaml
   when: ansible_distribution == "CentOS" and
