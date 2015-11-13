@@ -9,11 +9,13 @@
 
 - name: login to data_container repository
   sudo: yes
-  shell: "docker login -e {{ data_container.unc_registry_mail }} -p {{ data_container.unc_registry_pass }} -u {{ data_container.unc_registry_user }} {{ data_container.unc_registry_host }}"
+  shell: "docker login -e {{ data_container.unc_registry_mail }} -p {{ data_container.unc_registry_pass }} -u {{ data_container.unc_registry_user }} {{ data_container.unc_remote_registry }}"
+  tags:
+      - docker_pull
 
 - name: pull de-data container
   sudo: yes
-  shell: docker pull "{{ data_container.unc_registry_host }}/{{ data_container.image_name }}:latest"
+  shell: "docker pull {{ data_container.unc_remote_registry }}/{{ data_container.image_name }}:latest"
   tags:
       - docker_pull
 
