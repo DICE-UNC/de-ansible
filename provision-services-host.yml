@@ -3,6 +3,7 @@
   roles:
     - role: pip
     - role: docker
+    - role: iptables
     - role: cron-stats
 
 - hosts: systems
