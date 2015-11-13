@@ -1,0 +1,10 @@
+---
+- name: Database set permissions
+  hosts: db
+  sudo: False
+
+  roles:
+
+
+    - { role: db-creator }
+
