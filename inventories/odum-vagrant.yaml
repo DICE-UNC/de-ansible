@@ -3,6 +3,7 @@ anon.localvagrant.org
 amqp.localvagrant.org
 condor-node.localvagrant.org
 condor-submission.localvagrant.org
+docker-registry.localvagrant.org
 elasticsearch.localvagrant.org
 elk.localvagrant.org
 grouper.localvagrant.org
