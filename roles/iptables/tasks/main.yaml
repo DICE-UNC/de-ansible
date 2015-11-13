@@ -1,0 +1,15 @@
+---
+
+- name: stop firewalld, if running
+  service: name=firewalld state=stopped
+  ignore_errors: true
+
+- name: mask firewalld service
+  sudo: yes
+  shell: systemctl mask firewalld
+
+- name: install iptables-services
+  yum: name=iptables-services state=latest
+
+- name: enable iptables at boot
+  service: name=iptables enabled=yes

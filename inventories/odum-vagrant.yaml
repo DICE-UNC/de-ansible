@@ -6,6 +6,8 @@ condor-submission.localvagrant.org
 elasticsearch.localvagrant.org
 elk.localvagrant.org
 grouper.localvagrant.org
+irods1.localvagrant.org
+irods2.localvagrant.org
 rserve.localvagrant.org
 services.localvagrant.org
 ui.localvagrant.org
