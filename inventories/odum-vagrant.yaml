@@ -51,6 +51,9 @@ elk.localvagrant.org
 [grouper]
 grouper.localvagrant.org
 
+[htcondor]
+condor.localvagrant.org
+
 [irods]
 irods1.localvagrant.org
 irods2.localvagrant.org
