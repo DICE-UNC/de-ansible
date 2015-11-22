@@ -1,0 +1,34 @@
+# {{ ansible_managed }}
+# Manual customizations may be overwritten.
+
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+
+-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+-A INPUT -p icmp -j ACCEPT
+-A INPUT -i lo -j ACCEPT
+
+# all: allow SSH from DMZ and Trust
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport 22 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_trust }} --dport 22 -j ACCEPT
+
+{% if inventory_hostname in groups['db'] %}
+# postgres from DMZ
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport 5432 -j ACCEPT
+{% endif %}
+
+{% if inventory_hostname in groups['irods'] %}
+# irods: allow from DMZ and Trust
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport 1247 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport 20000:20199 -j ACCEPT
+-A INPUT -m state --state NEW -m udp -p udp -s {{ net_dmz }} --dport 20000:20199 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_trust }} --dport 1247 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_trust }} --dport 20000:20199 -j ACCEPT
+-A INPUT -m state --state NEW -m udp -p udp -s {{ net_trust }} --dport 20000:20199 -j ACCEPT
+{% endif %}
+
+-A INPUT -j REJECT --reject-with icmp-host-prohibited
+-A FORWARD -j REJECT --reject-with icmp-host-prohibited
+COMMIT

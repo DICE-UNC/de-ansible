@@ -11,5 +11,8 @@
 - name: install iptables-services
   yum: name=iptables-services state=latest
 
+- name: insert iptables template
+  template: src=iptables.j2 dest=/etc/sysconfig/iptables
+
 - name: enable iptables at boot
-  service: name=iptables enabled=yes
+  service: name=iptables state=started enabled=yes
