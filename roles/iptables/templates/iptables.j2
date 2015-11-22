@@ -29,6 +29,11 @@
 -A INPUT -m state --state NEW -m udp -p udp -s {{ net_trust }} --dport 20000:20199 -j ACCEPT
 {% endif %}
 
+{% if inventory_hostname in groups['rserve'] %}
+# postgres from DMZ
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport 6311 -j ACCEPT
+{% endif %}
+
 -A INPUT -j REJECT --reject-with icmp-host-prohibited
 -A FORWARD -j REJECT --reject-with icmp-host-prohibited
 COMMIT
