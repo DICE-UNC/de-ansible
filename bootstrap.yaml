@@ -3,5 +3,6 @@
 - hosts: systems
   sudo: yes
   roles:
+      - prereqs
       - iptables
       - vmtools
