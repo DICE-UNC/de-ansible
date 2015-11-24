@@ -14,5 +14,8 @@
 - name: insert iptables template
   template: src=iptables.j2 dest=/etc/sysconfig/iptables
 
+- name: and its init script
+  copy: src=iptables dest=/etc/init.d/iptables owner=root group=root mode=0755
+
 - name: enable iptables at boot
   service: name=iptables state=started enabled=yes
