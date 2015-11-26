@@ -1,0 +1,9 @@
+---
+
+- name: dataverse: pull dvinstall.zip
+  get_url: url=https://github.com/IQSS/dataverse/releases/download/v4.2.1/dvinstall-4.2.1.zip dest=/tmp mode=0644
+  tags: dataverse
+
+- name: dataverse: unzip dvinstall.zip
+  shell: unzip /tmp/dvinstall-4.2.1.zip
+  tags: dataverse
