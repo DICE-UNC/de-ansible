@@ -5,6 +5,7 @@
   with_items:
     - java-1.7.0-openjdk-devel
     - jq
+    - perl
   tags: dataverse
 
 - name: dataverse prereq: glassfish4
