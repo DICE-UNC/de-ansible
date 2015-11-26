@@ -13,25 +13,66 @@
 -A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport 22 -j ACCEPT
 -A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_trust }} --dport 22 -j ACCEPT
 
-#{% if inventory_hostname in groups['db'] %}
-## postgres from DMZ
-#-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport 5432 -j ACCEPT
-#{% endif %}
+{% if inventory_hostname in groups['condor'] %}
+# condor ports from DMZ
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport 61440:65535 -j ACCEPT
+-A INPUT -m state --state NEW -m udp -p udp -s {{ net_dmz }} --dport 61440:65535 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport 9618 -j ACCEPT
+{% endif %}
 
-#{% if inventory_hostname in groups['irods'] %}
-## irods from DMZ and Trust
-#-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport 1247 -j ACCEPT
-#-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport 20000:20199 -j ACCEPT
-#-A INPUT -m state --state NEW -m udp -p udp -s {{ net_dmz }} --dport 20000:20199 -j ACCEPT
-#-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_trust }} --dport 1247 -j ACCEPT
-#-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_trust }} --dport 20000:20199 -j ACCEPT
-#-A INPUT -m state --state NEW -m udp -p udp -s {{ net_trust }} --dport 20000:20199 -j ACCEPT
-#{% endif %}
+{% if inventory_hostname in groups['condor-submission'] %}
+# condor-submission range from DMZ
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport {{ condor_submission_ip_range }} -j ACCEPT
+-A INPUT -m state --state NEW -m udp -p udp -s {{ net_dmz }} --dport {{ condor_submission_ip_range }} -j ACCEPT
+{% endif %}
 
-#{% if inventory_hostname in groups['rserve'] %}
-## rserve from DMZ
-#-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport 6311 -j ACCEPT
-#{% endif %}
+{% if inventory_hostname in groups['db'] %}
+# postgres from DMZ
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport {{ db_port }} -j ACCEPT
+{% endif %}
+
+{% if inventory_hostname in groups['docker-registry'] %}
+# docker-registry ports from DMZ
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport {{ docker.registry.port }} -j ACCEPT
+-A INPUT -m state --state NEW -m udp -p udp -s {{ net_dmz }} --dport {{ docker.registry.port }} -j ACCEPT
+{% endif %}
+
+{% if inventory_hostname in groups['elk'] %}
+# logstash
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport {{ elk.logstash.port }} -j ACCEPT
+# kibana
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport {{ elk.kibana.port }} -j ACCEPT
+# elasticsearch
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport {{ elk.elasticsearch.port }} -j ACCEPT
+{% endif %}
+
+{% if inventory_hostname in groups['irods'] %}
+# irods from DMZ and Trust
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport 1247 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport 20000:20199 -j ACCEPT
+-A INPUT -m state --state NEW -m udp -p udp -s {{ net_dmz }} --dport 20000:20199 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_trust }} --dport 1247 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_trust }} --dport 20000:20199 -j ACCEPT
+-A INPUT -m state --state NEW -m udp -p udp -s {{ net_trust }} --dport 20000:20199 -j ACCEPT
+{% endif %}
+
+{% if inventory_hostname in groups['rserve'] %}
+# rserve from DMZ
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport 6311 -j ACCEPT
+{% endif %}
+
+{% if inventory_hostname in groups['services'] %}
+# service port range from DMZ
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport 31300:31399 -j ACCEPT
+{% endif %}
+
+{% if inventory_hostname in groups['ui'] %}
+# http and https, campus for now
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_campus }} --dport 80 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_wifi }} --dport 80 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_campus }} --dport 443 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_wifi }} --dport 443 -j ACCEPT
+{% endif %}
 
 -A INPUT -j REJECT --reject-with icmp-host-prohibited
 -A FORWARD -j REJECT --reject-with icmp-host-prohibited
