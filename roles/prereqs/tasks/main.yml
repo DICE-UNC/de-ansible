@@ -1,5 +1,9 @@
 ---
 
+- name: install epel repository
+  yum: name=epel-release state=latest
+  when: ansible_distribution == "CentOS"
+
 - name: install server prereqs
   yum: name={{ item }} state=latest
   with_items:
