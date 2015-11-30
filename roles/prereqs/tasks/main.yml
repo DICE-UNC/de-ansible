@@ -1,7 +1,7 @@
 ---
 
 - name: install server prereqs
-  yum: state=present name={{ item }}
+  yum: name={{ item }} state=latest
   with_items:
     - curl
     - python-pip
