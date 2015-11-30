@@ -3,10 +3,26 @@
 - name: dataverse prereq: java-1.7.0-openjdk-devel. dataverse requires this version.
   yum: name="{{item}}" state=latest
   with_items:
+    - httpd
+    - mod_ssl
     - java-1.7.0-openjdk-devel
     - jq
     - perl
   tags: dataverse
+
+- name: install shibboleth repo
+  get_url: url=http://download.opensuse.org/repositories/security:/shibboleth/CentOS_7/security:shibboleth.repo dest=/etc/yum.repos.d owner=root group=root mode=0644
+  tags: dataverse
+
+- name: install shibboleth rpms
+  yum: name="{{item}}" state=latest
+  with_items:
+    - shibboleth
+    - shibboleth-embedded-ds
+  tags: dataverse
+
+- name: configure apache/shib to front glassfish
+  debug: msg="Apache and Shibboleth packages installed. Please see http://guides.dataverse.org/en/latest/installation/shibboleth.html for detailed configuration instructions."
 
 - name: dataverse prereq: glassfish4
   get_url: url=http://dlc-cdn.sun.com/glassfish/4.1/release/glassfish-4.1.zip dest=/tmp mode=0644
