@@ -27,6 +27,17 @@
 {% endif %}
 
 {% if inventory_hostname in groups['db'] %}
+# Glassfish / DVN
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_campus }} --dport 80 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_wifi }} --dport 80 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_campus }} --dport 443 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_wifi }} --dport 443 -j ACCEPT
+
+# Glassfish Console
+-A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport 4848 -j ACCEPT
+{% endif %}
+
+{% if inventory_hostname in groups['db'] %}
 # postgres from DMZ
 -A INPUT -m state --state NEW -m tcp -p tcp -s {{ net_dmz }} --dport {{ db_port }} -j ACCEPT
 {% endif %}
