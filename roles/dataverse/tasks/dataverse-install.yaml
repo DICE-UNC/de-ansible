@@ -1,29 +1,29 @@
 ---
 
-- name: dataverse: pull dvinstall.zip
+- name: download dvinstall.zip
   get_url: url=https://github.com/IQSS/dataverse/releases/download/v4.2.1/dvinstall-4.2.1.zip dest=/tmp mode=0644
   tags: dataverse
 
-- name: dataverse: unzip dvinstall.zip
-  shell: unzip /tmp/dvinstall-4.2.1.zip
+- name: unzip dvinstall.zip
+  shell: unzip /tmp/dvinstall-4.2.1.zip -d /tmp
   tags: dataverse
 
-- name: dataverse: copy config template
+- name: copy config template
   template: src=install.de.j2 dest=/tmp/dvinstall/install.de owner=root group=root mode=0755
   tags: dataverse
 
-- name: dataverse: install!
-  shell: /tmp/dvinstall/install.de
+- name: install!
+  shell: "pushd /tmp/dvinstall && /bin/perl /tmp/dvinstall/install.de > /tmp/dvinstall/install.out 2>&1"
   tags: dataverse
 
-- name: dataverse: copy admin password hash (set group_var as SHA256)
+- name: copy admin password hash (set group_var as SHA256)
   template: src=adminpass.txt.j2 dest=/tmp/dvinstall/adminpass.txt owner=root group=root mode=0600
   tags: dataverse
 
-- name: dataverse: set admin password
-  shell: /usr/local/glassfish4/glassfish/bin/asadmin --passwordfile /tmp/dvinstall/adminpass.txt change-admin-password
+- name: set admin password
+  shell: "/usr/local/glassfish4/glassfish/bin/asadmin --user {{ dataverse_gf_adminuser }} --passwordfile /tmp/dvinstall/adminpass.txt change-admin-password"
   tags: dataverse
 
-- name: dataverse: enable secure admin
-  shell: /usr/local/glassfish4/glassfish/bin/asadmin --passwordfile /tmp/dvinstall/adminpass.txt enable-secure-admin
+- name: enable secure admin
+  shell: "/usr/local/glassfish4/glassfish/bin/asadmin --user {{ dataverse_gf_adminuser }} --passwordfile /tmp/dvinstall/adminpass.txt enable-secure-admin"
   tags: dataverse

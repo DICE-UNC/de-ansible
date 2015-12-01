@@ -1,6 +1,6 @@
 ---
 
-- name: dataverse prereq: java-1.7.0-openjdk-devel. dataverse requires this version.
+- name: install java-1.7.0-openjdk-devel. dataverse requires this version.
   yum: name="{{item}}" state=latest
   with_items:
     - httpd
@@ -24,74 +24,82 @@
 - name: configure apache/shib to front glassfish
   debug: msg="Apache and Shibboleth packages installed. Please see http://guides.dataverse.org/en/latest/installation/shibboleth.html for detailed configuration instructions."
 
-- name: dataverse prereq: glassfish4
+- name: download glassfish4. unarchive urls supported in ansible 2.0
   get_url: url=http://dlc-cdn.sun.com/glassfish/4.1/release/glassfish-4.1.zip dest=/tmp mode=0644
   tags: dataverse
 
-- name: dataverse: install glassfish. dataverse wants to run as root, not glassfish.
-  shell: unzip /tmp/glassfish-4.1.zip -d /usr/local/glassfish4
+- name: unzip glassfish. dataverse wants to run as root, not glassfish.
+  shell: unzip /tmp/glassfish-4.1.zip -d /usr/local
   tags: dataverse
 
-- name: dataverse: remove broken weld jar
+- name: remove broken weld jar
   shell: /bin/rm /usr/local/glassfish4/glassfish/modules/weld-osgi-bundle.jar
   tags: dataverse
 
-- name: dataverse: get patched weld jar
-  get_url: url=http://central.maven.org/maven2/org/jboss/weld/weld-osgi-bundle/2.2.10.SP1/weld-osgi-bundle-2.2.10.SP1-glassfish4.jar dest=/tmp/usr/local/glassfish4/glassfish/modules mode=0644
+- name: get patched weld jar
+  get_url: url=http://central.maven.org/maven2/org/jboss/weld/weld-osgi-bundle/2.2.10.SP1/weld-osgi-bundle-2.2.10.SP1-glassfish4.jar dest=/usr/local/glassfish4/glassfish/modules mode=0644
   tags: dataverse
 
-- name: dataverse: install glassfish systemd conf file
-  file: src=glassfish.service dest=/usr/lib/systemd/service mode=0644
+- name: install glassfish systemd conf file
+  copy: src=glassfish.service dest=/usr/lib/systemd/system owner=root group=root mode=0644
   tags: dataverse
 
-- name: dataverse: start glassfish
-  shell: /usr/local/glassfish4/bin/asadmin start-domain domain1
+- name: reload systemd because systemd
+  shell: systemctl daemon-reload
   tags: dataverse
 
-- name: dataverse: install postgres-9.3 repo. dataverse doesn't yet support 9.4.
-  yum: name=http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-centos93-9.3-1.noarch.rpm state=latest
+- name: start and enable glassfish
+  service: name=glassfish enabled=yes state=started
   tags: dataverse
 
-- name: dataverse: install postgres-9.3
+- name: install postgres-9.3 repo. dataverse doesn't yet support 9.4.
+  yum: name=http://yum.postgresql.org/9.3/redhat/rhel-7-x86_64/pgdg-centos93-9.3-2.noarch.rpm state=present
+  tags: dataverse
+
+- name: install postgres-9.3
   yum: name=postgresql93-server state=latest
   tags: dataverse
 
-- name: dataverse: init postgres-9.3
+- name: init postgres-9.3
   shell: /usr/pgsql-9.3/bin/postgresql93-setup initdb
   tags: dataverse
 
-- name: dataverse: install pg_hba.conf
-  file: src=pg_hba.conf dest=/var/lib/pgsql/9.3/data owner=postgres group=postgres mode=0644
+- name: install pg_hba.conf
+  copy: src=pg_hba.conf dest=/var/lib/pgsql/9.3/data owner=postgres group=postgres mode=0644
   tags: dataverse
 
-- name: dataverse: enable postgres-9.3 on boot
-  service: name=postgresql-9.3 state=enabled
+- name: enable postgres-9.3 on boot
+  service: name=postgresql-9.3 enabled=yes
   tags: dataverse
 
-- name: dataverse: start postgres-9.3
+- name: start postgres-9.3
   service: name=postgresql-9.3 state=started
   tags: dataverse
 
-- name: dataverse: download solr
+- name: download solr. unarchive urls supported in 2.0.
   get_url: url=https://archive.apache.org/dist/lucene/solr/4.6.0/solr-4.6.0.tgz dest=/tmp mode=0644
   tags: dataverse
 
-- name: dataverse: unzip solr
-  shell: unzip /tmp/solr-4.6.0.tgz -d /usr/local/solr4
+- name: unpack solr
+  shell: tar xvfz /tmp/solr-4.6.0.tgz -C /usr/local
   tags: dataverse
 
-- name: dataverse: get updated solr schema
-  get_url: url=https://github.com/IQSS/dataverse/releases/download/v4.2.1/schema.xml dest=/usr/local/solr4/example/solr/collection1/conf/ mode=0644
+- name: drop solr version
+  command: mv /usr/local/solr-4.6.0 /usr/local/solr
   tags: dataverse
 
-- name: dataverse: install solr systemd conf file
-  file: src=solr.service dest=/usr/lib/systemd/service mode=0644
+- name: get updated solr schema
+  get_url: url=https://github.com/IQSS/dataverse/releases/download/v4.2.1/schema.xml dest=/usr/local/solr/example/solr/collection1/conf/ mode=0644
   tags: dataverse
 
-- name: dataverse: enable solr on boot
-  service: name=solr state=enabled
+- name: install solr systemd conf file
+  copy: src=solr.service dest=/usr/lib/systemd/system owner=root group=root mode=0644
   tags: dataverse
 
-- name: dataverse: start solr
-  service: name=solr state=started
+- name: reload systemd because systemd
+  shell: systemctl daemon-reload
+  tags: dataverse
+
+- name: enable solr on boot, start solr
+  service: name=solr enabled=yes state=started
   tags: dataverse

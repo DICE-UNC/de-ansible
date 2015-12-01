@@ -63,7 +63,7 @@ if ($pg_only) {
 # dataverse users.
 
 my %CONFIG_DEFAULTS = (
-    'HOST_DNS_ADDRESS',    '{{ inventory.hostname }}',
+    'HOST_DNS_ADDRESS',    '{{ inventory_hostname }}',
     'GLASSFISH_DIRECTORY', '/usr/local/glassfish4',
     'MAIL_SERVER',         '{{ dataverse_relay }}',
 
@@ -884,14 +884,15 @@ print "When/if asadmin asks you to \"Enter admin user name\",\n";
 print "it should be safe to hit return and accept the default\n";
 print "(which is \"admin\").\n";
 
-print "\nPress any key to continue...\n\n";
-
-system "stty cbreak </dev/tty >/dev/tty 2>&1";
-unless ($yes) {
-    my $key = getc(STDIN);
-}
-system "stty -cbreak </dev/tty >/dev/tty 2>&1";
-print "\n";
+# odum: skipping the Press of the Return Key
+#print "\nPress any key to continue...\n\n";
+#
+#system "stty cbreak </dev/tty >/dev/tty 2>&1";
+#unless ($yes) {
+    #my $key = getc(STDIN);
+#}
+#system "stty -cbreak </dev/tty >/dev/tty 2>&1";
+#print "\n";
 
 # start domain, if not running:
 
@@ -918,7 +919,7 @@ else {
 # the username and password for every asadmin command, if
 # access to :4848 is password-protected:
 
-system( $glassfish_dir. "/bin/asadmin login" );
+system( $glassfish_dir. "/bin/asadmin login -u {{ dataverse_gf_adminuser }}" );
 
 # NEW: configure glassfish using ASADMIN commands:
 
