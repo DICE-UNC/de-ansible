@@ -1,17 +1,21 @@
 ---
 
-- name: install java-1.7.0-openjdk-devel. dataverse requires this version.
+- name: install java-1.7.0-openjdk-devel. dataverse currently requires this version.
   yum: name="{{item}}" state=latest
   with_items:
     - httpd
-    - mod_ssl
     - java-1.7.0-openjdk-devel
     - jq
+    - mod_ssl
     - perl
+  when: ansible_distribution == "CentOS"
+        and ansible_distribution_major_version == "7"
   tags: dataverse
 
 - name: install shibboleth repo
   get_url: url=http://download.opensuse.org/repositories/security:/shibboleth/CentOS_7/security:shibboleth.repo dest=/etc/yum.repos.d owner=root group=root mode=0644
+  when: ansible_distribution == "CentOS"
+        and ansible_distribution_major_version == "7"
   tags: dataverse
 
 - name: install shibboleth rpms
@@ -19,8 +23,11 @@
   with_items:
     - shibboleth
     - shibboleth-embedded-ds
+  when: ansible_distribution == "CentOS"
+        and ansible_distribution_major_version == "7"
   tags: dataverse
 
+# TODO: fix this.
 - name: configure apache/shib to front glassfish
   debug: msg="Apache and Shibboleth packages installed. Please see http://guides.dataverse.org/en/latest/installation/shibboleth.html for detailed configuration instructions."
 
@@ -28,11 +35,11 @@
   get_url: url=http://dlc-cdn.sun.com/glassfish/4.1/release/glassfish-4.1.zip dest=/tmp mode=0644
   tags: dataverse
 
-- name: unzip glassfish. dataverse wants to run as root, not glassfish.
+- name: unzip glassfish.
   shell: unzip /tmp/glassfish-4.1.zip -d /usr/local
   tags: dataverse
 
-- name: remove broken weld jar
+- name: remove old weld jar
   shell: /bin/rm /usr/local/glassfish4/glassfish/modules/weld-osgi-bundle.jar
   tags: dataverse
 
@@ -52,7 +59,7 @@
   service: name=glassfish enabled=yes state=started
   tags: dataverse
 
-- name: install postgres-9.3 repo. dataverse doesn't yet support 9.4.
+- name: install postgres-9.3 repo. dataverse doesn't yet like 9.4 OotB.
   yum: name=http://yum.postgresql.org/9.3/redhat/rhel-7-x86_64/pgdg-centos93-9.3-2.noarch.rpm state=present
   tags: dataverse
 
@@ -89,7 +96,7 @@
   tags: dataverse
 
 - name: get updated solr schema
-  get_url: url=https://github.com/IQSS/dataverse/releases/download/v4.2.1/schema.xml dest=/usr/local/solr/example/solr/collection1/conf/ mode=0644
+  get_url: url=https://github.com/IQSS/dataverse/releases/download/v4.2.1/schema.xml dest=/usr/local/solr/example/solr/collection1/conf/ owner={{ dataverse_gf_user }} group={{ dataverse_gf_group }} mode=0644
   tags: dataverse
 
 - name: install solr systemd conf file

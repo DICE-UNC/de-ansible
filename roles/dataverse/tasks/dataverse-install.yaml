@@ -12,12 +12,12 @@
   template: src=install.de.j2 dest=/tmp/dvinstall/install.de owner=root group=root mode=0755
   tags: dataverse
 
-- name: install!
+- name: run the IQSS install script
   shell: "pushd /tmp/dvinstall && /bin/perl /tmp/dvinstall/install.de > /tmp/dvinstall/install.out 2>&1"
   tags: dataverse
 
 - name: copy admin password hash (set group_var as SHA256)
-  template: src=adminpass.txt.j2 dest=/tmp/dvinstall/adminpass.txt owner=root group=root mode=0600
+  template: src=adminpass.txt.j2 dest=/tmp/dvinstall/adminpass.txt owner={{ dataverse_gf_user }} group={{ dataverse_gf_group }} mode=0600
   tags: dataverse
 
 - name: set admin password
