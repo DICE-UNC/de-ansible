@@ -11,16 +11,17 @@
         when: verify_condor_installed.rc != 0
 
       - name: Condor is enabled
-        shell: systemctl is-enabled condor.service
+        service: name=condor enabled=yes
         register: verify_condor_enabled
 
       - fail: msg="Condor is not enabled"
         when: verify_condor_installed.rc != 0
 
       - name: Condor is active
-        shell: systemctl is-active condor.service
+        service: name=condor state=started
         register: verify_condor_active
 
       - fail: msg="Condor is not active"
-        when: verify_condor_active.rc != 0
+        when: verify_condor_active.state != "started"
+
 
