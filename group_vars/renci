@@ -1,3 +1,9 @@
+proxy_env:
+  http_proxy: http://proxy.bos.example.com:8080
+  https_proxy: http://proxy.bos.example.com:8080
+
+
+
 de_war_url_prefix: https://github.com/iPlantCollaborativeOpenSource/DiscoveryEnvironment/releases/download/1.9.4-RELEASE/
 bg_war_url_prefix: "{{de_war_url_prefix}}"
 
