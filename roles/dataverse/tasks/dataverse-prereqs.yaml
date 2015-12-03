@@ -53,7 +53,11 @@
   user: name={{ dataverse_gf_user }} group={{ dataverse_gf_group }}
   tags: dataverse
 
-- name: glassfish runs as service account
+- name: glassfish runs as service account, should own files/
+  file: path={{ dataverse_filesdir }} owner={{ dataverse_gf_user }} group={{ dataverse_gf_group }} state=directory
+  tags: dataverse
+
+- name: glassfish runs as service account, should own itself, for now.
   file: path=/usr/local/glassfish4 owner={{ dataverse_gf_user }} group={{ dataverse_gf_group }} state=directory recurse=yes
   tags: dataverse
 

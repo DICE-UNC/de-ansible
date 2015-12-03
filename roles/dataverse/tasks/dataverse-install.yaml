@@ -13,15 +13,15 @@
   tags: dataverse
 
 - name: create gfclient dir
-  file: path=/home/{{ dataverse_gf_user }}/.gfclient owner={{ dataverse_gf_user }} group={{ dataverse_gf_group }} state=directory mode=0700
+  file: path=/root/.gfclient owner=root group=root state=directory mode=0700
   tags: dataverse
 
 - name: copy gfclient template
-  template: src=gfclient.j2 dest=/home/{{ dataverse_gf_user }}/.gfclient/pass owner={{ dataverse_gf_user }} group={{ dataverse_gf_group }} mode=0600
+  template: src=gfclient.j2 dest=/root/.gfclient/pass owner=root group=root mode=0600
   tags: dataverse
 
-- name: run the IQSS install script
-  shell: "pushd /tmp/dvinstall && /bin/perl /tmp/dvinstall/install.de > /tmp/dvinstall/install.out 2>&1"
+- name: run the IQSS install script (must be root, can't be glassfish)
+  shell: "pushd /tmp/dvinstall && /bin/perl /tmp/dvinstall/install.de > /tmp/dvinstall.out 2>&1"
   tags: dataverse
 
 - name: copy admin password hash (set group_var as SHA256)
