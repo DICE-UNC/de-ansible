@@ -54,7 +54,7 @@
   tags: dataverse
 
 - name: glassfish runs as service account
-  file: path=/usr/local/glassfish4 owner={{ dataverse_gf_user }} state=directory recurse=yes
+  file: path=/usr/local/glassfish4 owner={{ dataverse_gf_user }} group={{ dataverse_gf_group }} state=directory recurse=yes
   tags: dataverse
 
 - name: remove old weld jar
