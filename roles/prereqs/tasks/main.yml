@@ -2,7 +2,7 @@
 
 - name: install epel repository
   yum: name=epel-release state=latest
-  when: ansible_distribution == "CentOS"
+  when: ansible_os_family == "RedHat"
 
 - name: install server prereqs
   yum: name={{ item }} state=latest
