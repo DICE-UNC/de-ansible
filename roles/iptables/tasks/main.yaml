@@ -24,4 +24,4 @@
   copy: src=iptables dest=/etc/init.d/iptables owner=root group=root mode=0755
 
 - name: enable iptables at boot
-  service: name=iptables state=started enabled=yes
+  service: name=iptables state=restarted enabled=yes
