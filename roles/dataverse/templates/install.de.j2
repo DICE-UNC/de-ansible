@@ -919,7 +919,7 @@ else {
 # the username and password for every asadmin command, if
 # access to :4848 is password-protected:
 
-system( $glassfish_dir. "/bin/asadmin login -u {{ dataverse_gf_adminuser }}" );
+system( "echo -e \r |" . $glassfish_dir . "/bin/asadmin login" );
 
 # NEW: configure glassfish using ASADMIN commands:
 
