@@ -63,7 +63,7 @@ if ($pg_only) {
 # dataverse users.
 
 my %CONFIG_DEFAULTS = (
-    'HOST_DNS_ADDRESS',    '{{ dataverse_host_address }}',
+    'HOST_DNS_ADDRESS',    '{{ inventory_hostname }}',
     'GLASSFISH_DIRECTORY', '/usr/local/glassfish4',
     'MAIL_SERVER',         '{{ dataverse_relay }}',
 
@@ -919,7 +919,7 @@ else {
 # the username and password for every asadmin command, if
 # access to :4848 is password-protected:
 
-system( "echo -e \r |" . $glassfish_dir . "/bin/asadmin login" );
+system( $glassfish_dir. "/bin/asadmin login -u {{ dataverse_gf_adminuser }}" );
 
 # NEW: configure glassfish using ASADMIN commands:
 
