@@ -3,6 +3,13 @@
 - name: Verify that timezone packages and data are installed
   hosts: docker-ready
   tasks:
+      - name: install tzdata and tzdata-java
+        yum: name="{{item}}" state=latest
+        with_items:
+          - tzdata
+          - tzdata-java
+        when: ansible_os_family == "RedHat"
+
       - name: Verify tzdata package is installed
         shell: yum list installed tzdata
         register: verify_tzdata_installed
