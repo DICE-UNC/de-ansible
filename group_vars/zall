@@ -131,6 +131,8 @@ app_rpc_name: discoveryenvironment
 
 app_version_name: Phthalo
 app_version: 2.2.0
+de_version: "{{ app_version }}"
+drop_number: 0
 
 app_server_base_url: "http://{{ ansible_default_ipv4.address }}:8080"
 
@@ -162,6 +164,7 @@ condor:
   uid_domain: example.org
   allow_write: "{{ condor_allow_write }}"
   allow_read: "{{ condor_allow_write }}"
+  cred_dir: /var/cred_dir
 
 condor_log_monitor_event_log: /var/log/condor/event_log
 condor_log_monitor:
@@ -282,6 +285,7 @@ environment_name:
 
 elasticsearch_network_http_port:
 
+elk_host:
 elk:
   conf_dir: "{{de_config_dir}}/elk"
   logstash:
@@ -335,7 +339,7 @@ fs_max_paths_in_request: 1000
 
 gpg_home_dir:
 
-group_config:
+group_config: de
 
 grouper:
   service_name: iplant-grouper.service
@@ -504,6 +508,15 @@ kifshare:
   container_name: kifshare
   properties_file: kifshare.properties
   log_file: kifshare-docker.log
+
+
+logstash_forwarder:
+  service_description: logstash forwarder service
+  service_name: logstash-forwarder.service
+  service_name_short: logstash-forwarder
+  image_name: willdurand/logstash-forwarder
+  container_name: logstash-fowarder
+
 
 max_edit_file_size: 2147483647
 

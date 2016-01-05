@@ -1,7 +1,7 @@
 ---
 
 - name: install condor RHEL/CentOS7 repo
-  copy: src="{{ condor.rhel7_repo }}" dest=/etc/yum.repos.d owner=root group=root mode=0644
+  copy: src="htcondor-stable-rhel7.repo" dest=/etc/yum.repos.d owner=root group=root mode=0644
   when: ansible_distribution == "CentOS" and
         ansible_distribution_major_version == "7"
   tags:
