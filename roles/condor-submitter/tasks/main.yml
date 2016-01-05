@@ -43,5 +43,8 @@
       - enable_services
       - enable_condor
 
+- name: sleepy condor
+  pause: seconds=5
+
 - name: Running condor_reconfig
   command: /usr/sbin/condor_reconfig
