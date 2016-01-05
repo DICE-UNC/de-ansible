@@ -1,5 +1,5 @@
-# testing R server installation for Odum
-- hosts: rserve
+- name: install R server
+  hosts: rserve
   sudo: yes
   sudo_user: root
   roles:
