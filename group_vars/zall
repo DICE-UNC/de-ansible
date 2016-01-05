@@ -164,6 +164,7 @@ condor:
   uid_domain: example.org
   allow_write: "{{ condor_allow_write }}"
   allow_read: "{{ condor_allow_write }}"
+  cred_dir: /var/cred_dir
 
 condor_log_monitor_event_log: /var/log/condor/event_log
 condor_log_monitor:
