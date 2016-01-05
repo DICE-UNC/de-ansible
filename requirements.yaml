@@ -6,7 +6,7 @@
 
 # Temporarily use iPlant's fork
 #- src: Rackspace_Automation.epel
-- src: https://github.com/iPlantCollaborativeOpenSource/epel
+- src: https://github.com/DICE-UNC/epel.git
   name: Rackspace_Automation.epel
 
 # Temporarily use iPlant's fork
