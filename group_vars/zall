@@ -660,7 +660,8 @@ user_sessions:
 
 ## iPlant data container
 data_container:
-  image_name: iplant_data
+  unc_remote_registry: diceunc
+  image_name: test
   container_name: iplant_data
   service_name: iplant-data.service
   service_name_short: iplant-data
