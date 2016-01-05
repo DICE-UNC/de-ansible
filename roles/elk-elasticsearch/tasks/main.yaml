@@ -72,5 +72,5 @@
   wait_for: host="{{elk_host}}" port="{{elk.elasticsearch.port}}" state=started
 
 - include: index-templates.yaml
-- include: apps-lookup-index.yaml
+#- include: apps-lookup-index.yaml
 
