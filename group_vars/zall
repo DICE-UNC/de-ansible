@@ -69,8 +69,7 @@ amqp_condor_events_exchange_auto_delete: false
 amqp_irods_exchange: irods
 amqp_irods_exchange_type: topic
 amqp_irods_exchange_durable: true
-amqp_irods_exchange_auto_delete: false environment:
-    https_proxy: "{{ proxy_env.https_proxy }}"
+amqp_irods_exchange_auto_delete: false
 amqp_irods_queue_routing_key: "data-object.#"
 amqp_irods_message_auto_ack: true
 amqp_irods_connection_health_check_interval: 5000
@@ -269,7 +268,7 @@ donkey:
 
 email_smtp_host: 127.0.0.1
 email_smtp_from_address:
-email_host: "{{ ansible_local.dev.services.email_host }}"
+email_host: bogus.email.host
 email_base: http://{{ email_host }}:{{ iplant_email.port }}
 iplant_email:
   service_name: iplant-email.service
