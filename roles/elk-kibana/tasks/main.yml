@@ -53,6 +53,9 @@
       - restart_services
       - restart_kibana
 
+- name: debug kibana
+  debug: msg="waiting for {{ elk_host }} port {{ elk.kibana.port }} to become available."
+
 # If kibana is back, then ES is up
 - name: Wait for Kibana to come back
   wait_for: host="{{elk_host}}" port="{{elk.kibana.port}}" state=started
