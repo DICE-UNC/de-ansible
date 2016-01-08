@@ -3,7 +3,7 @@
 # Properties file configuration
 #
 - name: ensure data directory exists
-  file: path= /etc/cas state=directory owner={{tomcat_user}} group={{tomcat_user}}
+  file: path=/etc/cas state=directory owner={{tomcat_user}} group={{tomcat_user}}
   tags:
     - cas
     - properties
@@ -44,18 +44,18 @@
 # WAR file deployment and virtual host configuration
 #
 
+
 - name: cas | download overlay
   git: repo={{cas_git_url}}
-       dest=/home/{{ ansible_ssh_user }}/casbuild/
+       dest=/home/{{ ansible_ssh_user }}/casbuild/{{cas_git_project_name}}
 
 - name: cas | build cas overlay
-   shell:
+  shell:
        cd /home/{{ ansible_ssh_user }}/casbuild/{{cas_git_project_name}};
-       mvn clean;
-       mvn package -Dmaven.test.skip=true;
+       mvn clean -s /home/{{ ansible_ssh_user }}/.m2/settings.xml;
+       mvn package -s /home/{{ ansible_ssh_user }}/.m2/settings.xml -Dmaven.test.skip=true;
        cp target/{{cas_git_project_name}}.war target/cas.war;
-       cp target/cas.war /var/lib/tomcat7/webapps/cas.war
-
+       cp target/cas.war /var/lib/tomcat/webapps/cas.war
 
 - include: ../../apache_vhost/tasks/main.yml 
      context_path='{{ cas_context_path }}' 
@@ -68,5 +68,3 @@
     - cas
     - deploy
     - apache_vhost
-
-
