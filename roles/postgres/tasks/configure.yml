@@ -52,4 +52,6 @@
     - db
     - conf
 
-- meta: flush_handlers
+- name: restart postgresql-9.4
+  sudo: yes
+  service: name=postgresql-9.4 state=restarted

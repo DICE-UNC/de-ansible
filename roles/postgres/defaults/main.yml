@@ -16,13 +16,15 @@ postgresql_cluster: main
 
 
 # Store postgres' configuration files here
-postgresql_conf_directory: "/etc/postgresql/{{postgresql_version}}/{{postgresql_cluster}}"
+#postgresql_conf_directory: "/etc/postgresql/{{postgresql_version}}/{{postgresql_cluster}}"
+postgresql_conf_directory: "/var/lib/pgsql/{{postgresql_version}}/data"
 # Host-based authentication file
 postgresql_hba_file: "{{postgresql_conf_directory}}/pg_hba.conf"
 # Ident configuration file
 postgresql_ident_file: "{{postgresql_conf_directory}}/pg_ident.conf"
 # Use data in another directory
-postgresql_data_directory: "/var/lib/postgresql/{{postgresql_version}}/{{postgresql_cluster}}"
+#postgresql_data_directory: "/var/lib/pgsql/{{postgresql_version}}/{{postgresql_cluster}}"
+postgresql_data_directory: "{{postgresql_conf_directory}}"
 # Directory to store runtime data such as PIDs
 postgresql_runtime_directory: "/var/run/postgresql"
 # If external_pid_file is not explicitly set, on extra PID file is written

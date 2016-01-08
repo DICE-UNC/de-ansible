@@ -42,7 +42,7 @@
   ignore_errors: true
 
 - name: enable postgres for CentOS7
-  service: name=postgresql-9.4 enabled=yes state=started
+  service: name=postgresql-9.4 enabled=yes
   when: ansible_distribution == "CentOS" and
         ansible_distribution_major_version == "7"
  
