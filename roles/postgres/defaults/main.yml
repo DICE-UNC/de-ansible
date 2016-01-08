@@ -1,6 +1,6 @@
 ---
 
-postgresql_version: 9.4
+postgresql_version: 9.2
 
 # This will be the main admin user, which is only allowed to connect
 # from localhost, mainly for provisioning, maintenance and scripts.
@@ -36,9 +36,9 @@ postgresql_log_directory: "/var/log/postgresql"
 
 # Use 'localhost' for local addresses only. Use '*' alone to
 # listen on every available address.
-postgresql_listen_addresses:
-  - localhost
-  - "{{ address }}"
+postgresql_listen_addresses: '*'
+#  - localhost
+#  - "{{ db_address }}"
 postgresql_port: 5432
 
 # Authenticated connections that will be inserted in `pg_hba.conf`.
