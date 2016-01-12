@@ -7,6 +7,6 @@
    - role: common
    - role: java7
    - role: ldap
-   #- role: apache # install httpd
-   #- role: tomcat # install tomcat and configure ajp
-   #- role: cas
+   - role: apache # install httpd
+   - role: tomcat # install tomcat and configure ajp
+   - role: cas
