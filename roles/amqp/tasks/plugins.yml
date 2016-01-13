@@ -1,0 +1,19 @@
+---
+- name: Enable plugins
+  rabbitmq_plugin: names={{ rabbitmq_plugins | join(',') }} state=enabled new_only={{ rabbitmq_new_only }}
+  notify: restart rabbitmq-server
+  when: rabbitmq_plugins != []
+
+#Checking to see if we intend there to be no plugins.
+#If we specify none and some are enabled we are then going to disable any found.
+- name: get the list of active plugins to disable
+  command: rabbitmq-plugins list -e -m
+  register: result
+  when: rabbitmq_plugins == []
+  changed_when: result.stdout_lines != []
+
+- name: disable plugins if none added in the configuration
+  rabbitmq_plugin: name={{ item }} state=disabled
+  notify: restart rabbitmq-server
+  with_items: result.stdout_lines
+  when: result | changed
