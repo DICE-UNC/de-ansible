@@ -23,7 +23,10 @@
     - role: notify-chat
       msg: "Updating AMQP broker on {{ ansible_hostname }}"
 
-    - Rackspace_Automation.rabbitmq
+    - role: amqp
+      msg: "installing amqp"
+      environment:
+          https_proxy: "{{ proxy_env.https_proxy }}"
 
     - role: notify-chat
       msg: "Done updating AMQP broker on {{ ansible_hostname }}."

@@ -1,0 +1,22 @@
+- name: create the ssl folder for rabbitmq
+  file:
+    path={{ rabbitmq_conf_ssl_path }}
+    owner={{ rabbitmq_user }}
+    group={{ rabbitmq_group }}
+    mode=0750
+    state=directory
+
+- name: copy the ssl certificates
+  copy:
+    src=files/rabbitmq_{{ item }}.pem
+    dest={{ rabbitmq_conf_ssl_path }}/{{ item }}
+    owner={{ rabbitmq_user }}
+    group={{ rabbitmq_group }}
+    mode=0640
+    backup=yes
+  with_items:
+    - "{{ rabbitmq_cacert }}"
+    - "{{ rabbitmq_server_key }}"
+    - "{{ rabbitmq_server_cert }}"
+  notify: reload rabbitmq-server
+  when: rabbitmq_ssl_self_signed_cert == false

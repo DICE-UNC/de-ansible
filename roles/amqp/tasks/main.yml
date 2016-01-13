@@ -1,0 +1,45 @@
+- name: set amqp os supported
+  set_fact:
+    rabbitmq_supported_os: True
+
+- name: RedHat | Install erlang package
+  yum: name=erlang state=latest
+
+- name: RedHat | Install rabbitmq signing key
+  rpm_key: state=present key={{ rabbitmq_signing_key_location }}
+  environment:
+    https_proxy: "{{ proxy_env.https_proxy }}"
+
+#Only RPM install is availible at this time.
+- name: RedHat | Install rabbitmq rpm
+  yum: name={{ rabbitmq_rpm_location }} state=present
+
+- name: Check for unsupported target operating system
+  fail:
+    msg: "The operating system ({{ ansible_os_family }}) of the target machine ({{ inventory_hostname }}) is not currently supported."
+  when: rabbitmq_supported_os is not defined
+
+- name: Generate the rabbitmq configuration
+  template:
+    src=rabbitmq.config.j2
+    dest={{ rabbitmq_conf_path }}/rabbitmq.config
+    owner={{ rabbitmq_user }}
+    group={{ rabbitmq_group }}
+    mode=0644
+    backup=yes
+  notify: reload rabbitmq-server
+
+- include: ssl.yml
+  when: rabbitmq_ssl
+
+- include: plugins.yml
+
+- name: Enable and start the rabbitmq service
+  service: name=rabbitmq-server state=started enabled=true
+
+- include: vhost.yml
+
+- include: federation.yml
+  when: rabbitmq_federation
+
+
