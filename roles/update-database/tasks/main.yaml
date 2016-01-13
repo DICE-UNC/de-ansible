@@ -27,9 +27,10 @@
 
 - name: download current facepalm jar
   get_url: url="{{ facepalm_jar }}" dest=/tmp mode=0444
+  ignore_errors: true
 
 - name: download current SQL targz
-  get_url: url="{{ targz_url }}" dest=/tmp mode=0444
+  get_url: url="{{ tgz_url }}" dest=/tmp mode=0644
 
 - name: init/update database without facepalm docker container
   sudo: true
