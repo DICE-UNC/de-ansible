@@ -7,8 +7,10 @@
 
 - name: RedHat | Install rabbitmq signing key
   rpm_key: state=present key={{ rabbitmq_signing_key_location }}
+  #shell: rpm --import {{ rabbitmq_signing_key_location }}
   environment:
-    https_proxy: "{{ proxy_env.https_proxy }}"
+    http_proxy: "{{ proxy_env.https_proxy }}"
+
 
 #Only RPM install is availible at this time.
 - name: RedHat | Install rabbitmq rpm
