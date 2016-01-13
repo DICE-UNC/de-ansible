@@ -18,7 +18,7 @@
 
 - name: place .pgpass
   sudo: yes
-  template: src=postgres.pgpass.j2 dest=~/.pgpass mode=0600 backup=yes
+  template: src=postgres.pgpass.j2 dest=/root/.pgpass mode=0600 backup=yes
 
 - name: ensure java-1.8 for maximum facepalm
   yum: name=java-1.8.0-openjdk state=latest
@@ -36,6 +36,10 @@
   sudo: true
   shell: "java -jar /tmp/facepalm-standalone.jar -m {{fmode}} {{db_version_flag|default('')}} -h {{curr_db_host}} -p {{curr_db_port}} -d {{curr_db_name}} -U {{curr_db_user}} -A {{curr_db_admin}} {{tgz_flag}}"
   register: facepalm_output
+
+- name: remove .pgpass
+  sudo: yes
+  file: path=/root/.pgpass state=absent
 
 - debug: var=facepalm_output.stdout_lines
 - debug: var=facepalm_output.warnings
