@@ -28,6 +28,9 @@
 - name: download current facepalm jar
   get_url: url="{{ facepalm_jar }}" dest=/tmp mode=0444
 
+- name: download current SQL targz
+  get_url: url="{{ targz_url }}" dest=/tmp mode=0444
+
 - name: init/update database without facepalm docker container
   sudo: true
   shell: "java -jar /tmp/facepalm-standalone.jar -m {{fmode}} {{db_version_flag|default('')}} -h {{curr_db_host}} -p {{curr_db_port}} -d {{curr_db_name}} -U {{curr_db_user}} -A {{curr_db_admin}} {{tgz_flag}}"

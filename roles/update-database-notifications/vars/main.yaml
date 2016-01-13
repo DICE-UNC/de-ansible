@@ -1,7 +1,8 @@
 ---
 fmode: "{{facepalm_mode|default('update')}}"
 tgz_name: notification-db.tar.gz
-tgz_flag: "-f {{tgz_name}}"
+tgz_url: "{{ notification_db_targz }}"
+tgz_flag: "-f /tmp/{{tgz_name}}"
 curr_db_host: "{{notification_db_host}}"
 curr_db_port: "{{notification_db_port|default(5432)}}"
 curr_db_user: "{{notification_db_user}}"
