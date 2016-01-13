@@ -1,9 +1,0 @@
----
-
-- name: configure firewalld
-  hosts: firewalld
-  sudo: yes
-  roles:
-    - firewalld
-  when: ansible_os_family == "RedHat" and
-        ansible_distribution_major_version == "7"
