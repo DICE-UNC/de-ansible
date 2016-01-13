@@ -15,7 +15,7 @@
 
 - hosts: de-db
   roles:
-    - {role: update-database-de, fmode: "init", sudo: false, tgz_url: "{{ db_targz }}"}
+    - {role: update-database-de, fmode: "init", sudo: false}
 
 - hosts: jex-db
   roles:
