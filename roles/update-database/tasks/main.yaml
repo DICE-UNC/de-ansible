@@ -21,6 +21,7 @@
   template: src=postgres.pgpass.j2 dest=/root/.pgpass mode=0600 backup=yes
 
 - name: ensure java-1.8 for facepalm
+  sudo: yes
   yum: name=java-1.8.0-openjdk state=latest
   when: ansible_os_family == "RedHat" and
         ansible_distribution_major_version == "7"
