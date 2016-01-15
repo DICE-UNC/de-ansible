@@ -4,7 +4,6 @@
   sudo: yes
   sudo_user: root
   roles:
-   - role: common
    - role: java7
    - role: ldap
    - role: apache # install httpd
