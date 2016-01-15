@@ -9,13 +9,13 @@
 # uri: url={{ data_resource_url }}/{{ path }} method=PUT
 #      body={{ lookup('file', file)|replace('\n', '')|to_nice_json }}
 - name: copy file to box
-  copy: src={{ file }} dest=/tmp/{{file}}-pre owner=root group=root mode=0644
+  copy: src={{ file }} dest=/tmp/{{file}} owner=root group=root mode=0644
   tags:
       - config
       - config_elasticsearch
 
-- name: clean up that file breh
-  shell: "cat {{ file }}-pre | |replace('\n', '')|to_nice_json >> {{ file }}"
+#- name: clean up that file breh
+#  shell: "cat {{ file }}-pre | |replace('\n', '')|to_nice_json >> {{ file }}"
 
 - name: curl json because uri module barfs
   shell: "curl -v -XPUT {{data_resource_url}}/{{path}} --data-binary @/tmp/{{file}}"
