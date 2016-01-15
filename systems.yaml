@@ -38,7 +38,7 @@
   sudo: true
   tasks:
     - name: ensure DE DBMS starts on boot
-      service: name=postgresql-9.2 enabled=true
+      service: name=postgresql-9.4 enabled=true
 
 - hosts: systems:!CentOS_7
   gather_facts: false
