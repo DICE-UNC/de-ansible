@@ -1,32 +1,50 @@
 ---
 
-- name: ldap | Make an ansible directory for remembering what we previously run
+- name: ldap Make an ansible directory for remembering what we previously run
   file: path={{ldap_done_dir}} state=directory owner=root group=root
   tags: 
     - ldap
     - auth
 
-- name: ldap | install slapd
+- name: ldap install slapd
   apt: name=slapd state=installed
+  when: ansible_os_family == "Debian"
   tags:
       - ldap
       - auth
 
-- name: ldap | install ldap-utils
+- name: ldap install slapd
+  yum: name=openldap-servers state=latest
+  when: ansible_os_family == "RedHat"
+  tags:
+      - ldap
+      - auth
+
+- name: ldap install ldap-utils
   apt: name=ldap-utils state=installed
+  when: ansible_os_family == "Debian"
   tags:
       - ldap
       - auth
 
-- name: ldap | install ldap-scripts
+- name: ldap install ldap-utils
+  yum: name=openldap-clients state=latest
+  when: ansible_os_family == "RedHat"
+  tags:
+      - ldap
+      - auth
+
+- name: ldap install ldap-scripts
   apt: name=ldapscripts state=installed
   tags:
     - ldap
     - auth
+  when: ansible_os_family == "Debian"
 
 - name: Have we configured slapd before?
   shell: "[ -f {{ldap_slapd_dpkg_reconfigure_done}} ] && echo 'found' || echo ''"
   register: ldap_slapd_already_configured 
+  when: ansible_os_family == "Debian"
 
 - name: Genrate ldap master password
   shell: /usr/sbin/slappasswd -s {{ ldap_password }}
@@ -35,7 +53,7 @@
   changed_when: False
   when: ldap_slapd_already_configured.stdout.find('found') == -1
 
-- name: ldap | Ugly hack to make sure the slapd reconfigure does not get run more than once
+- name: ldap Ugly hack to make sure the slapd reconfigure does not get run more than once
   shell: touch {{ldap_slapd_dpkg_reconfigure_done}}
   tags: 
     - ldap
@@ -43,19 +61,19 @@
 
 - include: load-schema.yml
 
-- name: ldap | ensure ldapscripts.conf exists
+- name: ldap ensure ldapscripts.conf exists
   template: src=root/etc/ldapscripts/ldapscripts.conf.j2 dest=/etc/ldapscripts/ldapscripts.conf owner=root group=root
   tags: 
     - ldap
     - auth
 
-- name: ldap | Install add user template
+- name: ldap Install add user template
   template: src=root/etc/ldapscripts/ldapadduser.template.j2 dest=/etc/ldapscripts/ldapadduser.template owner=root group=root
   tags: 
     - ldap
     - auth
 
-- name: ldap | ensure ldap.secret exists
+- name: ldap ensure ldap.secret exists
   template: src=root/etc/ldap.secret.j2 dest=/etc/ldap.secret owner=root group=root mode=0400
   tags: 
     - ldap
@@ -63,5 +81,5 @@
 
 # This is really goofy but editing the secrets file in vims leaves an extra space at the end. Not sure what all editors do this
 # If your editor does not do this then this command will mess up your file.
-- name: ldap | ensure ldap.secret has no trailing space
+- name: ldap ensure ldap.secret has no trailing space
   command: truncate --size {{ldap_password_size}} /etc/ldap.secret
