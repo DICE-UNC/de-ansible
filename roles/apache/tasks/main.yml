@@ -16,6 +16,8 @@
   tags:
     - apache
 
+# mod_proxy_http and mod_proxy_ajp are enabled by default in RHEL/CentOS7
+
 - name: Enable mod_proxy_http (enables mod_proxy transitively)
   apache2_module: state=present name=proxy_http
   when: ansible_os_family == "Debian"
@@ -33,5 +35,11 @@
 - name: Start Apache2 (Debian)
   service: name=apache2 state=restarted
   when: ansible_os_family == "Debian"
+  tags:
+    - apache  
+
+- name: Start Apache2 (RHEL/CentOS)
+  service: name=httpd state=restarted
+  when: ansible_os_family == "RedHat"
   tags:
     - apache  
