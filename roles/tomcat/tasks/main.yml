@@ -3,16 +3,16 @@
 # "tomcat" variable controls version (@see common/vars)
 - include: ../../common/tasks/setfacts.yml 
 
-- name: install libtcnative-1 (RedHat)
-  yum: pkg={{libtcnative}} state=present
+- name: install libtcnative
+  yum: name=tomcat-native state=latest
   tags:
     - packages 
   when: ansible_os_family == "RedHat" and tomcat_apr == true
   tags:
     - tomcat
 
-- name: install tomcat (RedHat)
-  yum: name={{tomcat}} state=present
+- name: install tomcat
+  yum: name=tomcat state=present
   tags:
     - packages 
   notify: 
