@@ -1,7 +1,7 @@
 ---
 # Temporarily use iPlant's fork
 #- src: gpstathis.elasticsearch
-- src: https://github.com/iPlantCollaborativeOpenSource/ansible-elasticsearch
+- src: https://github.com/DICE-UNC/ansible-elasticsearch
   name: gpstathis.elasticsearch
 
 # Temporarily use iPlant's fork
