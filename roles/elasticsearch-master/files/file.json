@@ -10,7 +10,6 @@
         "analyzer" : "irods_path" 
       },  
       "userPermissions" : {
-        "_comment"   : "this is an array",
         "type"       : "nested",
         "properties" : { 
           "permission" : { 
