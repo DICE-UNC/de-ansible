@@ -47,15 +47,21 @@
   when: ansible_os_family == "Debian"
 
 - name: Genrate ldap master password
-  shell: /usr/sbin/slappasswd -s {{ ldap_password }}
+  shell: /usr/bin/ldapmodify -w {{ ldap_password }}
   register: generated_root_password
   ignore_errors: yes
   changed_when: False
-  when: ldap_slapd_already_configured.stdout.find('found') == -1
+  #when: ldap_slapd_already_configured.stdout.find('found') == -1
 
 - name: ldap Ugly hack to make sure the slapd reconfigure does not get run more than once
   shell: touch {{ldap_slapd_dpkg_reconfigure_done}}
   tags: 
+    - ldap
+    - auth
+
+- name: make sure slapd is running
+  service: name=slapd state=restarted
+  tags:
     - ldap
     - auth
 
