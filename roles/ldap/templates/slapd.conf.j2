@@ -24,8 +24,7 @@ loglevel	64
 database        bdb
 suffix          "{{ ldap_dc }}"
 rootdn          "{{ ldap_manager_dn }}"
-#rootpw          {{ root_password.stdout }}
-rootpw		{{ ldap_password }}
+rootpw          {{ root_password.stdout }}
 #This directory has to be created and would contain the ldap database.
 directory       /var/lib/ldap/{{ ldap_domain_name }}/
 index objectClass                       eq,pres

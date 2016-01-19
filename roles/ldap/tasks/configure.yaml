@@ -20,16 +20,17 @@
 
 - name: copy the supporting files
   copy: src=ldap dest={{ app_path }}/ldap mode=0755
-  when: ldap_enable_ssl and ansible_os_family == 'RedHat'
+  #when: ldap_enable_ssl and ansible_os_family == 'RedHat'
+  when: ansible_os_family == 'RedHat'
   notify: 
    - restart slapd
 
-- name: start the slapd service
-  service: name=slapd state=started enabled=yes 
+- name: restart the slapd service
+  service: name=slapd state=restarted enabled=yes 
 
 - name: Copy the template for creating base dn
   template: src=domain.ldif dest=/tmp
 
 - name: add the base domain
   #shell: ldapadd -x -D "cn=Manager,dc={{ ldap_domain_name.split('.')[0] }},dc={{ ldap_domain_name.split('.')[1] }}" -w {{ ldap_password }} -f /tmp/domain.ldif && touch {{ app_path }}/rootdn_created creates={{ app_path }}/rootdn_created
-  shell: ldapadd -x -D "{{ ldap_dc }}" -w {{ ldap_password }} -f /tmp/domain.ldif && touch {{ app_path }}/rootdn_created creates={{ app_path }}/rootdn_created
+  shell: ldapadd -x -D "{{ ldap_manager_dn }}" -w {{ ldap_password }} -f /tmp/domain.ldif && touch {{ app_path }}/rootdn_created creates={{ app_path }}/rootdn_created
