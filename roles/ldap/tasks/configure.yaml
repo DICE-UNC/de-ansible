@@ -7,7 +7,7 @@
   file: path={{ app_path }}/certs/ state=directory owner={{ ldap_user }} group={{ ldap_user }}
 
 - name: Generate the private key for certificate request
-  shell: openssl genrsa -des3 -passout pass:password -out my1.key 1024 chdir={{ app_path}}/certs/ 
+  shell: openssl genrsa -des3 -passout pass:password -out my1.key 1024 chdir={{ app_path }}/certs/ 
          creates={{ app_path}}/certs/my1.key
 
 - name: Strip the passphrase from the key 
@@ -19,14 +19,8 @@
          creates={{ app_path }}/certs/cert.crt
 
 - name: copy the supporting files
-  copy: src=ldap dest=/etc/sysconfig/ldap mode=0755
+  copy: src=ldap dest={{ app_path }}/ldap mode=0755
   when: ldap_enable_ssl and ansible_os_family == 'RedHat'
-  notify: 
-   - restart slapd
-
-- name: copy the supporting files
-  copy: src=slapd dest=/etc/default/slapd mode=0755
-  when: ldap_enable_ssl and ansible_os_family == 'Debian'
   notify: 
    - restart slapd
 
