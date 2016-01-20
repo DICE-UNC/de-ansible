@@ -19,7 +19,7 @@
          creates={{ app_path }}/certs/cert.crt
 
 - name: copy the supporting files
-  copy: src=ldap dest={{ app_path }}/ldap mode=0755
+  copy: src=ldap dest=/etc/sysconfig/ldap mode=0755
   #when: ldap_enable_ssl and ansible_os_family == 'RedHat'
   when: ansible_os_family == 'RedHat'
   notify: 
