@@ -1,3 +1,4 @@
 ---
 - include: install.yaml
 - include: configure.yaml
+- include: create-test-users.yaml
