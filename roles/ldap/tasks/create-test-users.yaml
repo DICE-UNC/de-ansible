@@ -13,9 +13,6 @@
     - ldap 
     - auth
 
-- name: Display all variables/facts known for a host
-  debug: var={{ldap_dc}}
-
 - name: ldap Install users and groups 
   shell: ldapadd -w {{ldap_password}} -x -D cn=admin,{{ldap_dc}} -f create_users_and_groups.ldif && touch {{ldap_create_user_and_groups_done}} chdir=/tmp creates={{ldap_create_user_and_groups_done}}
   when: ldap_include_create_user_and_groups
