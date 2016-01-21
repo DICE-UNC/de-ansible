@@ -1,4 +1,10 @@
 - name: ldap ensure ldapscripts.conf exists
+  file: name=/etc/ldapscripts state=directory owner=root group=root mode=0755
+  tags:
+    - ldap
+    - auth
+
+- name: copy ldapscripts template
   template: src=root/etc/ldapscripts/ldapscripts.conf.j2 dest=/etc/ldapscripts/ldapscripts.conf owner=root group=root
   tags: 
     - ldap
