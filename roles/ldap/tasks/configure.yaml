@@ -89,7 +89,7 @@
 
 - name: add the base domain
   #shell: ldapadd -x -D "cn=Manager,dc={{ ldap_domain_name.split('.')[0] }},dc={{ ldap_domain_name.split('.')[1] }}" -w {{ ldap_password }} -f /tmp/domain.ldif && touch {{ app_path }}/rootdn_created creates={{ app_path }}/rootdn_created
-  shell: ldapadd -x -D "{{ ldap_manager_dn }}" -w {{ ldap_password }} -f /tmp/domain.ldif && touch {{ app_path }}/rootdn_created creates={{ app_path }}/rootdn_created
+  shell: ldapadd -x -D "{{ ldap_manager_dn }}" -w {{ ldap_password }} -f /tmp/domain.ldif && touch {{ ldap_done_dir }}/rootdn_created creates={{ app_path }}/rootdn_created
   tags:
     - ldap
     - auth
