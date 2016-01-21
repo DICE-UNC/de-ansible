@@ -11,3 +11,21 @@
   tags: 
     - ldap
     - auth
+
+- name: create LDAP logging directory
+  file: name=/var/log/ldap state=directory owner={{ ldap_user }} mode=0755
+  tags: 
+    - ldap
+    - auth
+
+- name: write rsyslog conf file to enable LDAP logging
+  copy: src=ldap-syslog.conf dest=/etc/rsyslog.d/ldap-syslog.conf owner=root group=root mode=0644
+  tags: 
+    - ldap
+    - auth
+
+- name: restart rsyslogd
+  service: name=rsyslog state=restarted
+  tags: 
+    - ldap
+    - auth
