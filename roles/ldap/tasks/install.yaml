@@ -12,6 +12,20 @@
     - ldap
     - auth
 
+- name: create default DB_CONFIG
+  shell: cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG
+  when: ansible_os_family == 'RedHat'
+  tags: 
+    - ldap
+    - auth
+
+- name: chown DB_CONFIG to ldap user
+  file: name=/var/lib/ldap/DB_CONFIG owner={{ ldap_user }} mode=0644
+  when: ansible_os_family == 'RedHat'
+  tags: 
+    - ldap
+    - auth
+
 - name: create LDAP logging directory
   file: name=/var/log/ldap state=directory owner={{ ldap_user }} mode=0755
   tags: 
