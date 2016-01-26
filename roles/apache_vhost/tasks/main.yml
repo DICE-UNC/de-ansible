@@ -1,12 +1,14 @@
-- name: determine if a virtual host is required (vhost not required for localhost, 127.0.0.1 or any hostname with a colon in it)
-  set_fact: vhost_required={{ hostname.find(':') == -1 and hostname.find('localhost') == -1 and hostname.find('127.0.0.1') == -1 }}
 
 - name: Is a virtual host required?
   debug: msg="Virtual Host required for hostname {{hostname}}? {{vhost_required}}"
 
+- name: determine if a virtual host is required (vhost not required for localhost, 127.0.0.1 or any hostname with a colon in it)
+  set_fact: vhost_required={{ hostname.find(':') == -1 and hostname.find('localhost') == -1 and hostname.find('127.0.0.1') == -1 }}
+
 - name: ensure apache vhost exists
   apache_vhost: name={{ hostname }} ssl={{ ssl|default(false) }} ssl_cert_file={{ ssl_cert_file|default('') }} ssl_key_file={{ ssl_key_file|default('') }} ssl_chain_file={{ ssl_chain_file|default('') }}
   ignore_errors: yes
+  sudo: yes
   when: vhost_required
   notify:
     - reload apache
@@ -14,6 +16,7 @@
 - name: ensure proxy pass exists for apache (without default context)
   apache_proxypass: name={{ hostname }} src={{ item.src }} dest={{ item.dest }}
   when: vhost_required
+  sudo: yes
   with_items:
     - { src: "/{{ context_path.replace('/', '') }}", dest: "ajp://localhost:8009/{{ context_path.replace('/', '') }}" }
   notify:
@@ -23,6 +26,7 @@
   apache_proxypass: name={{ hostname }} src={{ item.src }} dest={{ item.dest }}
   when: vhost_required and additional_proxy_pass is defined
   with_items: additional_proxy_pass
+  sudo: yes
   notify:
     - reload apache
 

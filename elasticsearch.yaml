@@ -36,7 +36,7 @@
   roles:
     - role: notify-chat
       msg: "Updating elasticsearch"
-    - gpstathis.elasticsearch
+    - gpstathis.elasticsearch # check requirements.yaml, this has been replaced with a DICE fork
     - { role: elasticsearch-master, when: elasticsearch_node_master }
     - role: notify-chat
       msg: "Done updating elasticsearch"
