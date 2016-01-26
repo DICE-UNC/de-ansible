@@ -52,3 +52,9 @@
 - name: Enable SSL module for Apache (if required)
   apache2_module: state=present name=ssl
   when: ssl is defined and ssl == "true"
+
+
+  handlers:
+    - name: reload apache
+      service: name=apache2 state=restarted
+

@@ -61,7 +61,7 @@
      context_path='{{ cas_context_path }}' 
      hostname='{{ ansible_hostname }}'
      ssl="{{cas_do_ssl_config}}"
-     vhost_required="false" # KLUDGE
+     vhost_required="no" # KLUDGE
    #  ssl_cert_file='{{ssl_certificate_server_dir}}/{{ ssl_cert_file }}'  # KLUDGE
     # ssl_key_file='{{ssl_certificate_server_dir}}/{{ ssl_key_file }}'
     # ssl_chain_file='{{ssl_certificate_server_dir}}/{{ ssl_chain_file }}'
