@@ -59,7 +59,7 @@
 
 - include: ../../apache_vhost/tasks/main.yml 
      context_path='{{ cas_context_path }}' 
-     hostname='{{ ansible_hostname }}'
+     hostname='localhost' # KLUDGE
      ssl="{{cas_do_ssl_config}}"
      vhost_required="no" # KLUDGE
    #  ssl_cert_file='{{ssl_certificate_server_dir}}/{{ ssl_cert_file }}'  # KLUDGE
