@@ -56,10 +56,10 @@
        mvn package -s /home/{{ ansible_ssh_user }}/.m2/settings.xml -Dmaven.test.skip=true;
        cp target/{{cas_git_project_name}}.war target/cas.war;
        cp target/cas.war /var/lib/tomcat/webapps/cas.war
-
+ # KLUDGE
 - include: ../../apache_vhost/tasks/main.yml 
      context_path='{{ cas_context_path }}' 
-     hostname='localhost' # KLUDGE
+     hostname="localhost"
      ssl="{{cas_do_ssl_config}}"
      vhost_required="no" # KLUDGE
    #  ssl_cert_file='{{ssl_certificate_server_dir}}/{{ ssl_cert_file }}'  # KLUDGE
