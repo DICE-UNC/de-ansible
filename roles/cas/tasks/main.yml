@@ -50,6 +50,7 @@
        dest=/home/{{ ansible_ssh_user }}/casbuild/{{cas_git_project_name}}
 
 - name: cas | build cas overlay
+  sudo: yes
   shell:
        cd /home/{{ ansible_ssh_user }}/casbuild/{{cas_git_project_name}};
        mvn clean -s /home/{{ ansible_ssh_user }}/.m2/settings.xml;
