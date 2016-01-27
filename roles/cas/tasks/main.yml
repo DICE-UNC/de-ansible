@@ -56,7 +56,7 @@
        mvn clean -s /home/{{ ansible_ssh_user }}/.m2/settings.xml;
        mvn package -s /home/{{ ansible_ssh_user }}/.m2/settings.xml -Dmaven.test.skip=true;
        cp target/{{cas_git_project_name}}.war target/cas.war;
-       cp target/cas.war /var/lib/tomcat/webapps/cas.war
+       cp target/cas.war /usr/share/tomcat/webapps/cas.war
  # KLUDGE
 - include: ../../apache_vhost/tasks/main.yml 
      context_path='{{ cas_context_path }}' 
