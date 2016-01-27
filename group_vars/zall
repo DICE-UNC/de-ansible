@@ -2,6 +2,11 @@ proxy_env:
   http_proxy: http://proxy.bos.example.com:8080
   https_proxy: http://proxy.bos.example.com:8080
 
+
+tomcat_http_port: 8080
+tomcat_admin_username: admin
+tomcat_admin_password: somepassword
+
 ansible_ssh_port: 22
 global_config_dir: /etc/iplant
 de_config_dir: "{{ global_config_dir }}/de"
