@@ -14,6 +14,13 @@
     - cas
     - properties
 
+
+- name: copy log4j.xml
+  template: src=log4j.xml.j2 dest=/etc/cas/log4j.xml
+  tags:
+    - cas
+    - properties
+
 - name: set data ownership [all data is owned by tomcat]
   file: path=/etc/cas owner={{tomcat_user}} group={{tomcat_user}} recurse=true
   tags:
