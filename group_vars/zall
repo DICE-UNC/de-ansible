@@ -6,6 +6,7 @@ proxy_env:
 tomcat_http_port: 8080
 tomcat_admin_username: admin
 tomcat_admin_password: somepassword
+tomcat_user: tomcat
 
 ansible_ssh_port: 22
 global_config_dir: /etc/iplant

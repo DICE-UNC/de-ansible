@@ -4,7 +4,7 @@
   group: name=tomcat
 
 - name: add user "tomcat"
-  user: name=tomcat group=tomcat home=/usr/share/tomcat createhome=no
+  user: name=tomcat group=tomcat home=/usr/share/tomcat createhome=no shell=/bin/bash
   sudo: True
 
 - name: Download Tomcat
