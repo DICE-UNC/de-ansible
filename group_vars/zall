@@ -3,6 +3,10 @@ proxy_env:
   https_proxy: http://proxy.bos.example.com:8080
 
 
+ssl_certificate_server_dir=/usr/share/tomcat/cert
+ssl_cert_file=server.crt
+ssl_key_file=server.key
+
 tomcat_http_port: 8080
 tomcat_admin_username: admin
 tomcat_admin_password: somepassword
