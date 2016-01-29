@@ -16,7 +16,7 @@
 
 
 - name: copy log4j.xml
-  template: src=log4j.xml.j2 dest=/etc/cas/log4j.xml
+  template: src=log4j.xml.j2 dest=/etc/cas/log4j2.xml
   tags:
     - cas
     - properties
