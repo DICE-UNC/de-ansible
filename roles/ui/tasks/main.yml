@@ -56,6 +56,8 @@
   shell: docker pull {{docker.user}}/{{de.http_server.image_name}}:{{docker.tag}}
   register: docker_pull_nginx_v
   changed_when: docker_pull_nginx_v.stdout.find('Image is up to date') == -1
+  environment:
+        https_proxy: "{{ proxy_env.https_proxy }}"
   tags:
       - docker_pull
       - docker_pull_de-ui
@@ -64,6 +66,8 @@
   shell: docker pull {{docker.user}}/{{de.image_name}}:{{docker.tag}}
   register: docker_pull_ui_v
   changed_when: docker_pull_ui_v.stdout.find('Image is up to date') == -1
+  environment:
+        https_proxy: "{{ proxy_env.https_proxy }}"
   tags:
       - docker_pull
       - docker_pull_de-ui
