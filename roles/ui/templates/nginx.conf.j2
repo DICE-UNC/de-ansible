@@ -82,7 +82,7 @@ http {
 
             proxy_read_timeout 3600s;
 
-            proxy_pass http://de-host:8080/;
+            proxy_pass http://{{app_server_hostname}}:8080/;
         }
     }
 }
