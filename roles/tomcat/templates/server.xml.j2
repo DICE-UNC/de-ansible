@@ -92,8 +92,8 @@
 
      <Connector port="{{ tomcat_https_port }}"  protocol="HTTP/1.1" SSLEnabled="true"
                    maxThreads="150" scheme="https" secure="true"
-                   clientAuth="false" sslProtocol="TLS" SSLCertificateFile="{{ssl_certificate_server_dir}}/{{ssl_cert_file}}"
-                   SSLCertificateKeyFile="{{ssl_certificate_server_dir}}/{{ssl_key_file}}"
+                   clientAuth="false" sslProtocol="TLS" SSLCertificateFile="{{ssl_certificate_server_dir}}/{{cas_ssl_cert_file}}"
+                   SSLCertificateKeyFile="{{ssl_certificate_server_dir}}/{{cas_ssl_key_file}}"
                    SSLVerifyClient="false" SSLProtocol="TLSv1+TLSv1.1+TLSv1.2" />
 
 
