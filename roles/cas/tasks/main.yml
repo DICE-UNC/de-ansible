@@ -36,7 +36,7 @@
     - apache_vhost
 
 - name: copy SSL public key
-  copy: src=server.crt dest={{ssl_certificate_server_dir}}/{{ssl_cert_file}}
+  copy: src=server.crt dest={{ssl_certificate_server_dir}}/{{cas_ssl_cert_file}}
   when: cas_do_ssl_config
   tags:
     - cas
@@ -44,7 +44,7 @@
     - apache_vhost
 
 - name: copy SSL private key
-  copy: src=server.key dest={{ssl_certificate_server_dir}}/{{ssl_key_file}}
+  copy: src=server.key dest={{ssl_certificate_server_dir}}/{{cas_ssl_key_file}}
   when: cas_do_ssl_config
   tags:
         - cas
@@ -65,14 +65,12 @@
 
 - name: cas | download overlay
   git: repo={{cas_git_url}}
-       dest=/home/{{ ansible_ssh_user }}/casbuild/{{cas_git_project_name}}
+       dest=/home/{{ ansible_user }}/casbuild/{{cas_git_project_name}}
 
 - name: cas | build cas overlay
   sudo: yes
   shell:
-       cd /home/{{ ansible_ssh_user }}/casbuild/{{cas_git_project_name}};
-       mvn clean -s /home/{{ ansible_ssh_user }}/.m2/settings.xml;
-       mvn package -s /home/{{ ansible_ssh_user }}/.m2/settings.xml -Dmaven.test.skip=true;
+       cd /home/{{ ansible_user }}/casbuild/{{cas_git_project_name}}; mvn clean; mvn package;
        cp target/{{cas_git_project_name}}.war target/cas.war;
        cp target/cas.war /usr/share/tomcat/webapps/cas.war
  # KLUDGE
