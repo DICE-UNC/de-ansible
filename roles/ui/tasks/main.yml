@@ -63,7 +63,7 @@
       - docker_pull_de-ui
 
 - name: pull the de ui image
-  shell: docker pull {{docker.user}}/{{de.image_name}}:{{docker.tag}}
+  shell: docker pull {{unc_remote_registry}}/{{de.image_name}}:{{docker.tag}}
   register: docker_pull_ui_v
   changed_when: docker_pull_ui_v.stdout.find('Image is up to date') == -1
   environment:
