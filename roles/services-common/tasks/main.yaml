@@ -9,12 +9,12 @@
 
 - name: add the iplant user
   sudo: yes
-  user: name=iplant shell=/bin/bash groups=iplant append=yes
+  user: name=iplant shell=/bin/bash groups=iplant append=yes uid=1337
   tags:
       - init_users
       - init_iplant_user
 
-- name: add the docker group to iplant user
+- name: add the iplant user to docker group
   sudo: yes
   user: name=iplant groups=docker append=yes
   when: ansible_fqdn in groups['docker-ready']
@@ -22,7 +22,7 @@
       - init_users
       - init_iplant_user
 
-- name: add the docker group to condor user
+- name: add the condor user to docker group
   sudo: yes
   user: name=condor groups=docker append=yes
   when: ansible_fqdn in groups['docker-ready']
