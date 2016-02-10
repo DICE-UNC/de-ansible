@@ -83,13 +83,12 @@
   when: ansible_os_family == 'Debian'
 
 - name: Install iCAT: CentOS7
-  yum: 
-        name={{ irods_icat_rpm }} state=present
+  yum:  name={{ irods_icat_rpm }} state=present
   when: ansible_os_family == 'CentOS'
         and ansible_os_family_major_version == '7'
 
 - name: Install Postgres Plugin: Debian/Ubuntu
-  shell: dpkg -i  /home/{{ ansible_ssh_user }}/{{ postgres_pkg }}; apt-get -y -f install
+  shell: dpkg -i /home/{{ ansible_ssh_user }}/{{ postgres_pkg }}; apt-get -y -f install
   when: ansible_os_family == 'Debian'
 
 - name: Install Postgres Plugin: CentOS7
@@ -101,11 +100,10 @@
   template: src=genresponse.j2 dest=/home/{{ ansible_ssh_user }}/genresponse.sh
 
 - name: generate setup responses
-  shell: 
-     mkdir -p /opt/irods;
-     mv /home/{{ ansible_ssh_user }}/genresponse.sh /opt/irods/genresponse.sh;
-     chmod +x /opt/irods/genresponse.sh;
-     /opt/irods/genresponse.sh /opt/irods/setup_responses
+  shell: mkdir -p /opt/irods;
+         mv /home/{{ ansible_ssh_user }}/genresponse.sh /opt/irods/genresponse.sh;
+         chmod +x /opt/irods/genresponse.sh;
+         /opt/irods/genresponse.sh /opt/irods/setup_responses
 
 - name: irods setup requires FQDN
   hostname: name={{ ansible_fqdn }}
