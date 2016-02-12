@@ -1,90 +1,109 @@
 ---
 
-- name: Create PostgrSQL Database
+### do we want the irods database hosted locally, or on de-db?
+
+- name: install postgres-9.3 repo on Redhat / CentOS 7. irods requires 9.3.
+  yum:  name=http://yum.postgresql.org/9.3/redhat/rhel-7-x86_64/pgdg-centos93-9.3-2.noarch.rpm state=present
+  when: ansible_os_family == "RedHat" and
+        ansible_distribution_major_version == "7"
+  tags: irods
+
+- name: install postgres-9.3 on RedHat / CentOS 7.
+  yum:  name=postgresql93-server state=latest
+  when: ansible_os_family == "RedHat" and
+        ansible_distribution_major_version == "7"
+  tags: irods
+
+- name: init postgres-9.3 on RedHat / CentOS 7.
+  shell: /usr/pgsql-9.3/bin/postgresql93-setup initdb
+  when: ansible_os_family == "RedHat" and
+        ansible_distribution_major_version == "7"
+  tags: irods
+
+### place custom pg_hba.conf here?
+
+- name: enable postgres-9.3 on RedHat / CentOS 7.
+  service: name=postgresql-9.3 enabled=yes
+  when: ansible_os_family == "RedHat" and
+        ansible_distribution_major_version == "7"
+  tags: irods
+
+- name: start postgres-9.3 on RedHat / CentOS 7.
+  service: name=postgresql-9.3 state=started
+  when: ansible_os_family == "RedHat" and
+        ansible_distribution_major_version == "7"
+  tags: irods
+
+- name: Create PostgreSQL Database
   sudo: yes
   sudo_user: postgres
-  postgresql_db: name={{icat_db}}
+  postgresql_db: name={{ icat_db }}
 
 - name: grant access to user
   sudo: yes
   sudo_user: postgres
-  postgresql_user: db={{icat_db}} name={{icat_irods_user}} password={{irods_icat_password}} priv=ALL
+  postgresql_user: db={{ icat_db }} name={{ icat_irods_user }} password={{ irods_icat_password }} priv=ALL
 
-- name: ensure user does not have unnecessary privilege
+- name: ensure icat_irods_user does not have unnecessary privilege
   sudo: yes
   sudo_user: postgres
-  postgresql_user: name={{icat_irods_user}} role_attr_flags=NOSUPERUSER,NOCREATEDB
+  postgresql_user: name={{ icat_irods_user }} role_attr_flags=NOSUPERUSER,NOCREATEDB
 
 - name: download iCAT for Debian
   get_url: url={{ irods_icat_pkg }} dest=/home/{{ ansible_ssh_user }}/
-  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
-
-# assuming ansible's yum module speaks FTP (below)
-#- name: download iCAT for CentOS7
-#  get_url: url={{ irods_icat_rpm }} dest=/home/{{ ansible_ssh_user }}/
-#  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
+  when: ansible_os_family == 'Debian'
 
 - name: download iRODS postgreSQL plugin for Debian
   get_url: url={{ irods_postgres_pkg }} dest=/home/{{ ansible_ssh_user }}/
-  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
-
-# assuming ansible's yum module speaks FTP (below)
-#- name: download iRODS postgreSQL plugin for CentOS7
-#  get_url: url={{ irods_postgres_rpm }} dest=/home/{{ ansible_ssh_user }}/
-#  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
+  when: ansible_os_family == 'Debian'
 
 - name: install iRODS dependencies for Debian
   apt:
-      name: "{{item}}"
-      state: latest
+    name: "{{item}}"
+    state: latest
   with_items:
-      - python-jsonschema
-      - python-pip
-  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+    - python-jinja2
+    - python-jsonschema
+    - python-pip
+  when: ansible_os_family == 'Debian'
 
-- name: install iRODS dependencies for CentOS7
+- name: install iRODS dependencies for RedHat/CentOS
   yum:
-      name: "{{item}}"
-      state: latest
+    name: "{{item}}"
+    state: latest
   with_items:
-      - python-jsonschema
-      - python-pip
-  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
+    - python-jinja2
+    - python-jsonschema
+    - python-pip
+  when: ansible_os_family == 'RedHat'
+        and ansible_os_family_major_version == '7'
 
 - name: Install iCAT: Debian
-  shell: 
-     dpkg -i /home/{{ ansible_ssh_user }}/{{ icat_pkg }};
-     apt-get -y -f install
-  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  shell: dpkg -i /home/{{ ansible_ssh_user }}/{{ icat_pkg }}; apt-get -y -f install
+  when: ansible_os_family == 'Debian'
 
 - name: Install iCAT: CentOS7
-  yum: 
-     name=ftp://ftp.renci.org/pub/irods/releases/4.1.6/centos7/irods-icat-4.1.6-centos7-x86_64.rpm state=present
-  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
+  yum:  name={{ irods_icat_rpm }} state=present
+  when: ansible_os_family == 'CentOS'
+        and ansible_os_family_major_version == '7'
 
 - name: Install Postgres Plugin: Debian/Ubuntu
-  shell:
-     dpkg -i  /home/{{ ansible_ssh_user }}/{{ postgres_pkg }};
-     apt-get -y -f install
-  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  shell: dpkg -i /home/{{ ansible_ssh_user }}/{{ postgres_pkg }}; apt-get -y -f install
+  when: ansible_os_family == 'Debian'
 
 - name: Install Postgres Plugin: CentOS7
-  yum:
-     name=ftp://ftp.renci.org/pub/irods/releases/4.1.6/centos7/irods-database-plugin-postgres-1.6-centos7-x86_64.rpm state=present
-  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
+  yum: name={{ irods_postgres_rpm }} state=present
+  when: ansible_os_family == 'CentOS'
+        and ansible_os_family_major_version == '7'
 
 - name: response bootstrapping
   template: src=genresponse.j2 dest=/home/{{ ansible_ssh_user }}/genresponse.sh
 
 - name: generate setup responses
-  shell: 
-     mkdir -p /opt/irods;
-     mv /home/{{ ansible_ssh_user }}/genresponse.sh /opt/irods/genresponse.sh;
-     chmod +x /opt/irods/genresponse.sh;
-     /opt/irods/genresponse.sh /opt/irods/setup_responses
-
-- name: Install python packages
-  shell: pip install -U pip jsonschema jinja2
+  shell: mkdir -p /opt/irods;
+         mv /home/{{ ansible_ssh_user }}/genresponse.sh /opt/irods/genresponse.sh;
+         chmod +x /opt/irods/genresponse.sh;
+         /opt/irods/genresponse.sh /opt/irods/setup_responses
 
 - name: irods setup requires FQDN
   hostname: name={{ ansible_fqdn }}
