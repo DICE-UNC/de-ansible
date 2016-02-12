@@ -70,7 +70,7 @@
 - name: cas | build cas overlay
   sudo: yes
   shell:
-       cd /home/{{ansible_user}}/casbuild/{{cas_git_project_name}}; mvn clean; mvn package;
+       cd /home/{{ansible_user}}/casbuild/{{cas_git_project_name}}; mvn clean; mvn package; -DproxySet=true -DproxyHost={{http_proxy}}
        cp target/{{cas_git_project_name}}.war target/cas.war;
        cp target/cas.war /usr/share/tomcat/webapps/cas.war
   environment:
