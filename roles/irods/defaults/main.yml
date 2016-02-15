@@ -15,11 +15,11 @@ negotiation_key: temp_32_byte_key_for_agent__conn
 control_plane_port: 1248
 control_plane_key: temp_32_byte_key_for_agent__conn
 schema_uri: https://schemas.irods.org/configuration
-irods_port: 1247
-irods_admin: rods
-icat_db: icat
-# irods icat user
-icat_irods_user: irods
-# irods icat pass
-irods_icat_password: irods
-icat_port: 5432
+#
+# these are in group_vars now
+#irods_port: 1247
+#irods_admin: rods
+#icat_db: icat
+#icat_port: 5432
+#icat_irods_user: irods
+#irods_icat_password: irods

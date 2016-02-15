@@ -27,7 +27,23 @@
   ignore_errors: true
   tags: irods
 
-### place custom pg_hba.conf here?
+- name: remove localhost listeners
+  lineinfile: dest=/var/lib/pgsql/9.3/data/pg_hba.conf regexp="^host" state=absent
+  when: ansible_os_family == "RedHat" and
+        ansible_distribution_major_version == "7"
+  tags: irods
+
+- name: add global ipv4 listener
+  lineinfile: dest=/var/lib/pgsql/9.3/data/pg_hba.conf line='host    all             all             0.0.0.0/0            password' state=present
+  when: ansible_os_family == "RedHat" and
+        ansible_distribution_major_version == "7"
+  tags: irods
+
+- name: set listen_addresses to wildcard
+  lineinfile: dest=/var/lib/pgsql/9.3/data/postgresql.conf line="listen_addresses = \'*\'" state=present
+  when: ansible_os_family == "RedHat" and
+        ansible_distribution_major_version == "7"
+  tags: irods
 
 - name: enable postgres-9.3 on RedHat / CentOS 7.
   service: name=postgresql-9.3 enabled=yes
@@ -36,7 +52,7 @@
   tags: irods
 
 - name: start postgres-9.3 on RedHat / CentOS 7.
-  service: name=postgresql-9.3 state=started
+  service: name=postgresql-9.3 state=restarted
   when: ansible_os_family == "RedHat" and
         ansible_distribution_major_version == "7"
   tags: irods
@@ -44,17 +60,17 @@
 - name: Create PostgreSQL Database
   sudo: yes
   sudo_user: postgres
-  postgresql_db: name={{ icat_db }}
+  postgresql_db: name={{ irods_icat_db }}
 
 - name: grant access to user
   sudo: yes
   sudo_user: postgres
-  postgresql_user: db={{ icat_db }} name={{ icat_irods_user }} password={{ irods_icat_password }} priv=ALL
+  postgresql_user: db={{ irods_icat_db }} name={{ irods_icat_user }} password={{ irods_icat_password }} priv=ALL
 
 - name: ensure icat_irods_user does not have unnecessary privilege
   sudo: yes
   sudo_user: postgres
-  postgresql_user: name={{ icat_irods_user }} role_attr_flags=NOSUPERUSER,NOCREATEDB
+  postgresql_user: name={{ irods_icat_user }} role_attr_flags=NOSUPERUSER,NOCREATEDB
 
 - name: download iCAT for Debian
   get_url: url={{ irods_icat_pkg }} dest=/home/{{ ansible_ssh_user }}/
@@ -91,7 +107,7 @@
 
 - name: Install iCAT on CentOS7
   yum:  name={{ irods_icat_rpm }} state=present
-  when: ansible_os_family == 'CentOS' and
+  when: ansible_os_family == 'RedHat' and
         ansible_distribution_major_version == '7'
 
 - name: Install Postgres Plugin on Debian/Ubuntu
@@ -100,7 +116,7 @@
 
 - name: Install Postgres Plugin on CentOS7
   yum: name={{ irods_postgres_rpm }} state=present
-  when: ansible_os_family == 'CentOS' and
+  when: ansible_os_family == 'RedHat' and
         ansible_distribution_major_version == '7'
 
 - name: response bootstrapping
@@ -113,7 +129,7 @@
          /opt/irods/genresponse.sh /opt/irods/setup_responses
 
 - name: irods setup requires FQDN
-  hostname: name={{ ansible_fqdn }}
+  hostname: name={{ inventory_hostname }}
 
 - name: config iCAT server
   shell: /var/lib/irods/packaging/setup_irods.sh < /opt/irods/setup_responses
