@@ -15,6 +15,13 @@
     - properties
 
 
+- name: add proxy for maven
+  template: src=maven/settings.xml dest=/home/{{ansible_user}}/.m2/settings.xml
+  tags:
+    - cas
+    - properties
+
+
 - name: copy log4j.xml
   template: src=log4j.xml.j2 dest=/etc/cas/log4j2.xml
   tags:
@@ -70,7 +77,7 @@
 - name: cas | build cas overlay
   sudo: yes
   shell:
-       cd /home/{{ansible_user}}/casbuild/{{cas_git_project_name}}; mvn clean; mvn package; -DproxySet=true -DproxyHost={{proxy_env.http_maven_proxy_host}} -DproxyPort={{proxy_env.http_maven_proxy_port}} -DproxySet=true
+       cd /home/{{ansible_user}}/casbuild/{{cas_git_project_name}}; mvn clean; mvn package; -DproxySet=true -DproxyHost={{proxy_env.http_maven_proxy_host}} -DproxyPort={{proxy_env.http_maven_proxy_port}}
        cp target/{{cas_git_project_name}}.war target/cas.war;
        cp target/cas.war /usr/share/tomcat/webapps/cas.war
 
