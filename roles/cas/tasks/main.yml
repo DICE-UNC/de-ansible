@@ -14,13 +14,11 @@
     - cas
     - properties
 
-
 - name: add proxy for maven
   template: src=maven/settings.xml dest=/home/{{ansible_user}}/.m2/settings.xml
   tags:
     - cas
     - properties
-
 
 - name: copy log4j.xml
   template: src=log4j.xml.j2 dest=/etc/cas/log4j2.xml
