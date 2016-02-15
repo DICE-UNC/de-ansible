@@ -2,6 +2,12 @@
 
 ### do we want the irods database hosted locally, or on de-db?
 
+- name: ensure pyscopg2 is installed for ansible postgres module
+  yum: name=python-psycopg2 state=latest
+  when: ansible_os_family == "RedHat" and
+        ansible_distribution_major_version == "7"
+  tags: irods
+
 - name: install postgres-9.3 repo on Redhat / CentOS 7. irods requires 9.3.
   yum:  name=http://yum.postgresql.org/9.3/redhat/rhel-7-x86_64/pgdg-centos93-9.3-2.noarch.rpm state=present
   when: ansible_os_family == "RedHat" and
@@ -14,10 +20,11 @@
         ansible_distribution_major_version == "7"
   tags: irods
 
-- name: init postgres-9.3 on RedHat / CentOS 7.
-  shell: /usr/pgsql-9.3/bin/postgresql93-setup initdb
+- name: init postgres-9.3 on RedHat / CentOS 7
+  shell: "/usr/pgsql-9.3/bin/postgresql93-setup initdb"
   when: ansible_os_family == "RedHat" and
         ansible_distribution_major_version == "7"
+  ignore_errors: true
   tags: irods
 
 ### place custom pg_hba.conf here?
@@ -75,26 +82,26 @@
     - python-jinja2
     - python-jsonschema
     - python-pip
-  when: ansible_os_family == 'RedHat'
-        and ansible_os_family_major_version == '7'
+  when: ansible_os_family == 'RedHat' and
+        ansible_distribution_major_version == '7'
 
-- name: Install iCAT: Debian
+- name: Install iCAT on Debian
   shell: dpkg -i /home/{{ ansible_ssh_user }}/{{ icat_pkg }}; apt-get -y -f install
   when: ansible_os_family == 'Debian'
 
-- name: Install iCAT: CentOS7
+- name: Install iCAT on CentOS7
   yum:  name={{ irods_icat_rpm }} state=present
-  when: ansible_os_family == 'CentOS'
-        and ansible_os_family_major_version == '7'
+  when: ansible_os_family == 'CentOS' and
+        ansible_distribution_major_version == '7'
 
-- name: Install Postgres Plugin: Debian/Ubuntu
+- name: Install Postgres Plugin on Debian/Ubuntu
   shell: dpkg -i /home/{{ ansible_ssh_user }}/{{ postgres_pkg }}; apt-get -y -f install
   when: ansible_os_family == 'Debian'
 
-- name: Install Postgres Plugin: CentOS7
+- name: Install Postgres Plugin on CentOS7
   yum: name={{ irods_postgres_rpm }} state=present
-  when: ansible_os_family == 'CentOS'
-        and ansible_os_family_major_version == '7'
+  when: ansible_os_family == 'CentOS' and
+        ansible_distribution_major_version == '7'
 
 - name: response bootstrapping
   template: src=genresponse.j2 dest=/home/{{ ansible_ssh_user }}/genresponse.sh
@@ -142,3 +149,5 @@
 - name: copy in DE ipc-uuid.re
   copy: src=ipc-uuid.re dest=/etc/irods/ owner=irods group=irods mode=0644
 
+- name: restart irods service
+  service: name=irods state=restarted
