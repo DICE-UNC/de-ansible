@@ -5,6 +5,7 @@
   sudo: yes
   sudo_user: root
   roles:
-  - role: common
-  - role: postgres
+  #- role: common
+  # irods requires postgres-9.3
+  #- role: postgres
   - role: irods
