@@ -16,7 +16,8 @@
 
 
 - name: add proxy for maven
-  template: src=maven/settings.xml dest=/home/{{ansible_user}}/.m2/settings.xml
+  template: src=maven/settings.xml dest=/root/.m2/settings.xml
+  sudo: yes
   tags:
     - cas
     - properties
