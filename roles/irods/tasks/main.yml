@@ -27,7 +27,17 @@
   ignore_errors: true
   tags: irods
 
-### place custom pg_hba.conf here?
+- name: remove localhost listeners
+  lineinfile: dest=/var/lib/pgsql/9.3/data/pg_hba.conf regexp="^host" state=absent
+  when: ansible_os_family == "RedHat" and
+        ansible_distribution_major_version == "7"
+  tags: irods
+
+- name: add global ipv4 listener
+  lineinfile: dest=/var/lib/pgsql/9.3/data/pg_hba.conf line='host    all             all             0.0.0.0/0            password' state=present
+  when: ansible_os_family == "RedHat" and
+        ansible_distribution_major_version == "7"
+  tags: irods
 
 - name: enable postgres-9.3 on RedHat / CentOS 7.
   service: name=postgresql-9.3 enabled=yes
@@ -91,7 +101,7 @@
 
 - name: Install iCAT on CentOS7
   yum:  name={{ irods_icat_rpm }} state=present
-  when: ansible_os_family == 'CentOS' and
+  when: ansible_os_family == 'RedHat' and
         ansible_distribution_major_version == '7'
 
 - name: Install Postgres Plugin on Debian/Ubuntu
@@ -100,7 +110,7 @@
 
 - name: Install Postgres Plugin on CentOS7
   yum: name={{ irods_postgres_rpm }} state=present
-  when: ansible_os_family == 'CentOS' and
+  when: ansible_os_family == 'RedHat' and
         ansible_distribution_major_version == '7'
 
 - name: response bootstrapping
@@ -113,7 +123,7 @@
          /opt/irods/genresponse.sh /opt/irods/setup_responses
 
 - name: irods setup requires FQDN
-  hostname: name={{ ansible_fqdn }}
+  hostname: name={{ inventory_hostname }}
 
 - name: config iCAT server
   shell: /var/lib/irods/packaging/setup_irods.sh < /opt/irods/setup_responses
