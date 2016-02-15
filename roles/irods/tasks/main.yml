@@ -44,17 +44,17 @@
 - name: Create PostgreSQL Database
   sudo: yes
   sudo_user: postgres
-  postgresql_db: name={{ icat_db }}
+  postgresql_db: name={{ irods_icat_db }}
 
 - name: grant access to user
   sudo: yes
   sudo_user: postgres
-  postgresql_user: db={{ icat_db }} name={{ icat_irods_user }} password={{ irods_icat_password }} priv=ALL
+  postgresql_user: db={{ irods_icat_db }} name={{ irods_icat_user }} password={{ irods_icat_password }} priv=ALL
 
 - name: ensure icat_irods_user does not have unnecessary privilege
   sudo: yes
   sudo_user: postgres
-  postgresql_user: name={{ icat_irods_user }} role_attr_flags=NOSUPERUSER,NOCREATEDB
+  postgresql_user: name={{ irods_icat_user }} role_attr_flags=NOSUPERUSER,NOCREATEDB
 
 - name: download iCAT for Debian
   get_url: url={{ irods_icat_pkg }} dest=/home/{{ ansible_ssh_user }}/
