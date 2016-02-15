@@ -39,6 +39,12 @@
         ansible_distribution_major_version == "7"
   tags: irods
 
+- name: set listen_addresses to wildcard
+  lineinfile: dest=/var/lib/pgsql/9.3/data/postgresql.conf line="listen_addresses = \'*\'" state=present
+  when: ansible_os_family == "RedHat" and
+        ansible_distribution_major_version == "7"
+  tags: irods
+
 - name: enable postgres-9.3 on RedHat / CentOS 7.
   service: name=postgresql-9.3 enabled=yes
   when: ansible_os_family == "RedHat" and
@@ -46,7 +52,7 @@
   tags: irods
 
 - name: start postgres-9.3 on RedHat / CentOS 7.
-  service: name=postgresql-9.3 state=started
+  service: name=postgresql-9.3 state=restarted
   when: ansible_os_family == "RedHat" and
         ansible_distribution_major_version == "7"
   tags: irods

@@ -3,8 +3,10 @@
 
 RESPFILE=$1
 
-echo "{{ irods_service_acct_user }}" > $RESPFILE  	# service account user ID
-echo "{{ irods_service_acct_user }}" >> $RESPFILE 	# service account group ID
+#irods 4.1.7 doesn't seem to want these two lines? dls
+#echo "{{ irods_service_acct_user }}" > $RESPFILE  	# service account user ID
+#echo "{{ irods_service_acct_user }}" >> $RESPFILE 	# service account group ID
+
 echo "{{ irods_zone }}" >> $RESPFILE            	# initial zone name
 echo "{{ irods_port }}" >> $RESPFILE            	# service port
 echo "{{ port_range_begin }}" >> $RESPFILE      	# transport starting port
