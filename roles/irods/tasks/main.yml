@@ -170,3 +170,14 @@
 # systemctl call errors out, use init.d instead
 - name: restart irods service
   shell: "/etc/init.d/irods restart"
+
+- name: create DE/services irods user
+  sudo: yes
+  sudo_user: irods
+  shell: "iadmin mkuser {{ irods_user }}#{{ irods_zone }} rodsuser"
+
+- name: set DE/services user password
+  sudo: yes
+  sudo_user: irods
+  shell: "iadmin moduser {{ irods_user }}#{{ irods_zone }} password {{ irods_password }}"
+
