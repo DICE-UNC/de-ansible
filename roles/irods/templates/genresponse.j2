@@ -3,10 +3,8 @@
 
 RESPFILE=$1
 
-#irods 4.1.7 doesn't seem to want these two lines? dls
-#echo "{{ irods_service_acct_user }}" > $RESPFILE  	# service account user ID
-#echo "{{ irods_service_acct_user }}" >> $RESPFILE 	# service account group ID
-
+echo "{{ irods_service_acct_user }}" > $RESPFILE  	# service account user ID
+echo "{{ irods_service_acct_user }}" >> $RESPFILE 	# service account group ID
 echo "{{ irods_zone }}" >> $RESPFILE            	# initial zone name
 echo "{{ irods_port }}" >> $RESPFILE            	# service port
 echo "{{ port_range_begin }}" >> $RESPFILE      	# transport starting port
@@ -22,7 +20,7 @@ echo "{{ irods_admin_password }}" >> $RESPFILE      	# iRODS admin password
 echo "yes" >> $RESPFILE                   		# confirm iRODS settings
 #echo "{{ inventory_hostname }}" >> $RESPFILE   	# database hostname
 echo "{{ irods_icat_host }}" >> $RESPFILE    		# database hostname
-echo "{{ irods_icat_port }}" >> $RESPFILE             	# database port
+echo "{{ irods_icat_dbport }}" >> $RESPFILE             # database port
 echo "{{ irods_icat_db }}" >> $RESPFILE               	# database DB name
 echo "{{ irods_icat_user }}" >> $RESPFILE       	# database admin username
 echo "{{ irods_icat_password }}" >> $RESPFILE   	# database admin password
