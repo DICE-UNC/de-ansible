@@ -113,7 +113,7 @@
 - name: docker pull nginx-ssl
   sudo: yes
   shell: docker pull {{docker.user}}/{{grouper.http_server.image_name}}:{{docker.tag}}
-  register: docker_pul_nginx_ssl_v
+  register: docker_pul_nginx_ssl_vhttps://mail.google.com/mail/u/0/#inbox/152f072cb44fcde8
   tags:
     - docker_pull
     - docker-pull_iplant-grouper
