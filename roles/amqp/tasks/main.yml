@@ -29,7 +29,8 @@
     group={{ rabbitmq_group }}
     mode=0644
     backup=yes
-  notify: reload rabbitmq-server
+  # systemd doesn't like 'reload' for type=notify; we restart below anyway.
+  #notify: reload rabbitmq-server
 
 - include: ssl.yml
   when: rabbitmq_ssl
@@ -37,7 +38,7 @@
 - include: plugins.yml
 
 - name: Enable and start the rabbitmq service
-  service: name=rabbitmq-server state=started enabled=true
+  service: name=rabbitmq-server state=restarted enabled=true
 
 - include: vhost.yml
 
