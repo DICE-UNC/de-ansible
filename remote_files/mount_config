@@ -1,3 +1,0 @@
-### An HTCondor configuration file for setting mount options
-
-MOUNT_UNDER_SCRATCH = /tmp,/var/tmp

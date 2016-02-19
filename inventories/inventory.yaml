@@ -1,0 +1,91 @@
+[renci]
+irods1.rencivm.org address=172.25.14.235 zone=dfc1 fedzone=dfc2
+irods2.rencivm.org address=172.25.14.148 zone=dfc2 fedzone=dfc1
+dfc-test-vmlab1.edc.renci.org address=172.25.8.96
+dfc-test-vmlab2.edc.renci.org address=172.25.8.97
+dfc-test-vmlab3.edc.renci.org address=172.25.8.98 db_address=172.25.8.98
+dfc-test-vmlab4.edc.renci.org address=172.25.8.99
+dfc-test-vmlab5.edc.renci.org address=172.25.8.135 db_address=172.25.8.135
+
+[systems]
+dfc-test-vmlab1.edc.renci.org
+dfc-test-vmlab2.edc.renci.org
+dfc-test-vmlab3.edc.renci.org
+dfc-test-vmlab4.edc.renci.org
+dfc-test-vmlab5.edc.renci.org
+
+[docker-ready]
+dfc-test-vmlab1.edc.renci.org
+dfc-test-vmlab2.edc.renci.org
+dfc-test-vmlab3.edc.renci.org
+dfc-test-vmlab4.edc.renci.org
+dfc-test-vmlab5.edc.renci.org
+
+[grouper]
+dfc-test-vmlab3.edc.renci.org
+
+[services]
+dfc-test-vmlab2.edc.renci.org
+
+[anon-files]
+dfc-test-vmlab2.edc.renci.org
+
+[irods1]
+irods1.rencivm.org
+
+[irods2]
+irods2.rencivm.org
+
+[irods]
+irods1.rencivm.org
+irods2.rencivm.org
+
+[ui]
+dfc-test-vmlab1.edc.renci.org
+
+[db]
+dfc-test-vmlab3.edc.renci.org
+
+
+[condor]
+dfc-test-vmlab5.edc.renci.org
+
+[condor-submission]
+dfc-test-vmlab4.edc.renci.org
+
+[amqp-brokers]
+dfc-test-vmlab5.edc.renci.org
+
+[elasticsearch]
+dfc-test-vmlab3.edc.renci.org
+
+[dataverse]
+
+[docker-registry]
+dfc-test-vmlab1.edc.renci.org
+
+[elk]
+dfc-test-vmlab4.edc.renci.org
+
+[rserve]
+
+[cas]
+dfc-test-vmlab1.edc.renci.org ldap_host=dfc-test-vmlab1.edc.renci.org ldap_port=389 ldap_admin_password=p4sswurd
+
+[ldap]
+ad.renci.org ldap_port=389
+
+[de-db]
+dfc-test-vmlab3.edc.renci.org
+
+[jex-db]
+dfc-test-vmlab3.edc.renci.org
+
+[metadata-db]
+dfc-test-vmlab3.edc.renci.org
+
+[notification-db]
+dfc-test-vmlab3.edc.renci.org
+
+
+

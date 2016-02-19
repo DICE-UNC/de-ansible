@@ -1,3 +1,0 @@
-{
-  "app_server_base_url": "http://{{ ansible_default_ipv4.address }}:8080"
-}

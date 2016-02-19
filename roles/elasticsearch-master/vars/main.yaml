@@ -1,2 +1,0 @@
----
-data_resource_url: http://localhost:{{ elasticsearch_network_http_port }}/data

@@ -1,5 +1,0 @@
----
-- hosts: systems
-  sudo: true
-  roles:
-    - timezone
