@@ -12,11 +12,8 @@
 
 - include: elasticsearch.yaml
 
-#- include: systems.yaml
-#  vars:
-#    reboot: true
-
-
-
+- include: systems.yaml
+  vars:
+    reboot: false
 
 - include: verify-POST_DEPLOY.yaml
